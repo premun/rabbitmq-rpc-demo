@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ForeCastle.Communication.CommunicationService
+namespace RabbitMQDemo.Communication.CommunicationService
 {
 	/// <summary>
 	/// Exception is thrown when something's wrong in communication library. 

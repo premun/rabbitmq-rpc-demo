@@ -1,4 +1,4 @@
-﻿namespace ForeCastle.Communication.Listeners.Factory
+﻿namespace RabbitMQDemo.Communication.Listeners.Factory
 {
 	/// <summary>
 	/// Listener factory. Provides creation of listeners.

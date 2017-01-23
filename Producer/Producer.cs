@@ -1,8 +1,8 @@
 ﻿using System;
 using Autofac;
-using ForeCastle.Communication.Callers.Factory;
-using ForeCastle.Communication.Definitions;
 using ForeCastle.Library.Identifier;
+using RabbitMQDemo.Communication.Callers.Factory;
+using RabbitMQDemo.Communication.Definitions;
 
 namespace ForeCastle.Producer
 {
@@ -18,7 +18,7 @@ namespace ForeCastle.Producer
 		public void Run()
 		{
 			Console.Write("Please enter consumer id:\n> ");
-			var consumerId = Console.ReadLine();
+			string consumerId = Console.ReadLine();
 
 			if (string.IsNullOrEmpty(consumerId))
 			{
@@ -26,13 +26,18 @@ namespace ForeCastle.Producer
 			}
 
 			var id = new ConsumerIdentifier(consumerId);
-			var caller = GetProxy(id);
+			IConsumer caller = GetProxy(id);
 
-			string message;
-			do
+			Console.WriteLine(caller.Multiply(14, 984));
+			while(true)
 			{
 				Console.Write("Please enter message:\n> ");
-				message = Console.ReadLine();
+				string message = Console.ReadLine();
+
+				if (string.IsNullOrEmpty(message))
+				{
+					return;
+				}
 
 				if (message.ToLower().Equals("kill"))
 				{
@@ -41,7 +46,7 @@ namespace ForeCastle.Producer
 				}
 
 				caller.DisplayMessage(message);
-			} while (!string.IsNullOrEmpty(message));
+			}
 		}
 
 		private IConsumer GetProxy(Identifier id)

@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{EA74B8A7-EFEC-4E66-9813-7564C4AE556A}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>ForeCastle.Communication</RootNamespace>
+    <RootNamespace>RabbitMQDemo.Communication</RootNamespace>
     <AssemblyName>Communication</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <StyleCopOverrideSettingsFile>Settings.StyleCop</StyleCopOverrideSettingsFile>
@@ -61,24 +61,13 @@
     <Compile Include="CommunicationService\Rabbit\RabbitRpcPacket.cs" />
     <Compile Include="Utils\MethodCallLogger.cs" />
     <Compile Include="Utils\QueueUtils.cs" />
-    <Compile Include="Utils\TypeOperations\TypeOperationsService.cs" />
-    <Compile Include="Utils\TypeOperations\TypeOperationsSuites\BaseTypeOperationsSuite.cs" />
-    <Compile Include="Utils\TypeOperations\TypeOperationsSuites\ByteArrayOperationSuite.cs" />
-    <Compile Include="Utils\TypeOperations\TypeOperationsSuites\ByteOperationSuite.cs" />
-    <Compile Include="Utils\TypeOperations\TypeOperationsSuites\EnumOperaionSuite.cs" />
-    <Compile Include="Utils\TypeOperations\TypeOperationsSuites\IntOperationsSuite.cs" />
-    <Compile Include="Utils\TypeOperations\TypeOperationsSuites\ITypeOperationsSuite.cs" />
-    <Compile Include="Utils\TypeOperations\TypeOperationsSuites\StringOperationsSuite.cs" />
     <Compile Include="Listeners\UniversalListener.cs" />
     <Compile Include="Callers\UniversalCallerProxy.cs" />
-    <Compile Include="Utils\TypeOperations\TypeOperationsSuites\BoolOperationsSuite.cs" />
-    <Compile Include="Utils\TypeOperations\TypeOperationsSuites\ListOperationsSuite.cs" />
     <Compile Include="Autofac\CommunicationModule.cs" />
     <Compile Include="Callers\Factory\ICallerFactory.cs" />
     <Compile Include="Callers\Factory\UniversalCallerFactory.cs" />
     <Compile Include="Listeners\Factory\UniversalListenerFactory.cs" />
     <Compile Include="Listeners\Factory\IListenerFactory.cs" />
-    <Compile Include="Utils\TypeOperations\TypeOperationsSuites\ContractOperationSuite.cs" />
     <Compile Include="Definitions\Contracts\CodeResult.cs" />
     <Compile Include="CommunicationService\WorkCommunicationPacket.cs" />
     <Compile Include="CommunicationService\ICommunicationConsumer.cs" />

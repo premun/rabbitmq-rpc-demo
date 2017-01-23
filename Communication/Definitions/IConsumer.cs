@@ -1,4 +1,4 @@
-﻿namespace ForeCastle.Communication.Definitions
+﻿namespace RabbitMQDemo.Communication.Definitions
 {
 	public interface IConsumer
 	{

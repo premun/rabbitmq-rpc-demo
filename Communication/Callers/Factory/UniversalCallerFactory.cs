@@ -1,6 +1,6 @@
-﻿using ForeCastle.Communication.CommunicationService;
+﻿using RabbitMQDemo.Communication.CommunicationService;
 
-namespace ForeCastle.Communication.Callers.Factory
+namespace RabbitMQDemo.Communication.Callers.Factory
 {
 	/// <summary>
 	/// Factory creating universal callers.

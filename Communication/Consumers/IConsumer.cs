@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ForeCastle.Communication.Consumers
+namespace RabbitMQDemo.Communication.Consumers
 {
 	/// <summary>
 	/// Consume packets of TPacket on the given queue. 

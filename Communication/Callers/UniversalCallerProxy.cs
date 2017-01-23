@@ -1,10 +1,10 @@
 ﻿using System.Reflection;
 using System.Runtime.Remoting.Messaging;
 using System.Runtime.Remoting.Proxies;
-using ForeCastle.Communication.CommunicationService;
 using ForeCastle.Library;
+using RabbitMQDemo.Communication.CommunicationService;
 
-namespace ForeCastle.Communication.Callers
+namespace RabbitMQDemo.Communication.Callers
 {
 	/// <summary>
 	/// Creates RPC caller of interface T.
@@ -43,10 +43,6 @@ namespace ForeCastle.Communication.Callers
 			var methodCall = (IMethodCallMessage)msg;
 			var method = (MethodInfo)methodCall.MethodBase;
 
-			var methodCallContext = new MethodCallContext()
-			{
-				MethodName = method.Name
-			};
 			var parameters = new object[methodCall.InArgCount];
 
 			for (int i = 0; i < methodCall.InArgCount; i++)
@@ -54,8 +50,14 @@ namespace ForeCastle.Communication.Callers
 				parameters[i] = methodCall.GetInArg(i);
 			}
 
-			methodCallContext.Parameters = parameters;
-			var sendPacket = new RpcCommunicationPacket
+
+			var methodCallContext = new MethodCallContext
+			{
+				MethodName = method.Name,
+				Parameters = parameters
+			};
+
+			var packet = new RpcCommunicationPacket
 			{
 				Body = Serializer.Serialize(methodCallContext)
 			};
@@ -63,11 +65,11 @@ namespace ForeCastle.Communication.Callers
 			object methodResult = null;
 			if (method.ReturnType == typeof(void))
 			{
-				_communicationService.CallRpc(_targetQueueName, sendPacket, RpcCallType.DoNotExpectReply);
+				_communicationService.CallRpc(_targetQueueName, packet, RpcCallType.DoNotExpectReply);
 			}
 			else
 			{
-				var replyPacket = _communicationService.CallRpc(_targetQueueName, sendPacket);
+				RpcCommunicationPacket replyPacket = _communicationService.CallRpc(_targetQueueName, packet);
 				var replyMethodContext = Serializer.Deserialize<MethodCallContext>(replyPacket.Body);
 				methodResult = replyMethodContext.Result;
 			}

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using ForeCastle.Communication.Utils;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
+using RabbitMQDemo.Communication.Utils;
 
-namespace ForeCastle.Communication.CommunicationService.Rabbit
+namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 {
 	/// <summary>
 	/// RabbitMQ implementations of ICommunicationConsumer.

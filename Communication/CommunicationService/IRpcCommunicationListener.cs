@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace ForeCastle.Communication.CommunicationService
+namespace RabbitMQDemo.Communication.CommunicationService
 {
 	/// <summary>
 	/// Event arguments for listening thread failure.

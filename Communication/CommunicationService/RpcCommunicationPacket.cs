@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ForeCastle.Communication.CommunicationService
+namespace RabbitMQDemo.Communication.CommunicationService
 {
 	/// <summary>
 	/// Packet for RPC communication. 

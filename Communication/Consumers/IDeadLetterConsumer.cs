@@ -1,4 +1,4 @@
-﻿namespace ForeCastle.Communication.Consumers
+﻿namespace RabbitMQDemo.Communication.Consumers
 {
 	/// <summary>
 	/// Consume dead packets of TPacket on the given queue. 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ForeCastle.Communication.CommunicationService
+namespace RabbitMQDemo.Communication.CommunicationService
 {
 	/// <summary>
 	/// Consume publish/consume packets on the given queue. 

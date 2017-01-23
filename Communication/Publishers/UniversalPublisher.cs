@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ForeCastle.Communication.CommunicationService;
 using ForeCastle.Library;
+using RabbitMQDemo.Communication.CommunicationService;
 
-namespace ForeCastle.Communication.Publishers
+namespace RabbitMQDemo.Communication.Publishers
 {
 	/// <summary>
 	/// Publish packets of TPacket on the given queue. 

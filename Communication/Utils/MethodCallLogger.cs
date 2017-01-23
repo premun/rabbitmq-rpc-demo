@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ForeCastle.Communication.Utils
+namespace RabbitMQDemo.Communication.Utils
 {
 	/// <summary>
 	/// Method call log.

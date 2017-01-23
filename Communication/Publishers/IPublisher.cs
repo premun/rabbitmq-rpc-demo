@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ForeCastle.Communication.Publishers
+namespace RabbitMQDemo.Communication.Publishers
 {
 	/// <summary>
 	/// Publish packets of TPacket on the given queue. 

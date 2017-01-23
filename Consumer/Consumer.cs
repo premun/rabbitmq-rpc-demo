@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading;
-using ForeCastle.Communication.Definitions;
-using ForeCastle.Communication.Listeners;
-using ForeCastle.Communication.Listeners.Factory;
 using ForeCastle.Library;
 using ForeCastle.Library.Identifier;
+using RabbitMQDemo.Communication.Definitions;
+using RabbitMQDemo.Communication.Listeners;
+using RabbitMQDemo.Communication.Listeners.Factory;
 
 namespace ForeCastle.Consumer
 {

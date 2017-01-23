@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Reflection;
 using System.Threading;
-using ForeCastle.Communication.CommunicationService;
 using ForeCastle.Library;
+using RabbitMQDemo.Communication.CommunicationService;
 
-namespace ForeCastle.Communication.Listeners
+namespace RabbitMQDemo.Communication.Listeners
 {
 	/// <summary>
 	/// Listen for RPC calls for interface of T on the given queue. 
@@ -45,15 +46,9 @@ namespace ForeCastle.Communication.Listeners
         /// <summary>
         /// Return listeners`s thread which listener use for listening.
         /// </summary>
-        public Thread ListeningThread
-		{
-			get
-			{ 
-				return _listener == null ? null : _listener.ListeningThread;
-			}
-		}
+        public Thread ListeningThread => _listener?.ListeningThread;
 
-        /// <summary>
+		/// <summary>
         /// Initializes a new instance of the <see cref="UniversalListener{T}"/> class.
         /// </summary>
         /// <param name="communicationService">The communication service.</param>
@@ -67,15 +62,16 @@ namespace ForeCastle.Communication.Listeners
 		{
 			var sendMethodContext = Serializer.Deserialize<MethodCallContext>(packet.Body);
 
-			var instanceType = typeof(T);
-			var callingMethod = instanceType.GetMethod(sendMethodContext.MethodName);
+			Type instanceType = typeof(T);
+			MethodInfo callingMethod = instanceType.GetMethod(sendMethodContext.MethodName);
 
 			if (callingMethod == null)
 			{
 				throw new InvalidOperationException("Calling unknown function.");
 			}
+
 			var parameters = sendMethodContext.Parameters;
-			var result = callingMethod.Invoke(_instance, parameters);
+			object result = callingMethod.Invoke(_instance, parameters);
 			var replyMethodContext = new MethodCallContext
 			{
 				MethodName = sendMethodContext.MethodName
@@ -90,6 +86,7 @@ namespace ForeCastle.Communication.Listeners
 			{
 				Body = Serializer.Serialize(replyMethodContext)
 			};
+
 			return replyPacket; 
 		}
 

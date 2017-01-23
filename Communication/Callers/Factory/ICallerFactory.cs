@@ -1,4 +1,4 @@
-﻿namespace ForeCastle.Communication.Callers.Factory
+﻿namespace RabbitMQDemo.Communication.Callers.Factory
 {
 	/// <summary>
 	/// Caller factory. Provides creation of callers.

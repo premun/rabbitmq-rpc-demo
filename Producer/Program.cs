@@ -1,8 +1,8 @@
 ﻿using System;
 using Autofac;
-using ForeCastle.Communication.Autofac;
 using ForeCastle.Library.Autofac;
 using ForeCastle.Library.Identifier;
+using RabbitMQDemo.Communication.Autofac;
 
 namespace ForeCastle.Producer
 {

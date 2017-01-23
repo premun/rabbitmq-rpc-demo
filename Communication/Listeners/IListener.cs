@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading;
-using ForeCastle.Communication.CommunicationService;
+using RabbitMQDemo.Communication.CommunicationService;
 
-namespace ForeCastle.Communication.Listeners
+namespace RabbitMQDemo.Communication.Listeners
 {
 	/// <summary>
 	/// Listen for RPC calls for interface of T on the given queue. 

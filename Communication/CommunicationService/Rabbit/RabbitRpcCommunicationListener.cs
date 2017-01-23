@@ -6,7 +6,7 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
 
-namespace ForeCastle.Communication.CommunicationService.Rabbit
+namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 {
 	/// <summary>
 	/// Implementation for IRpcCommunicationListener using RabbitMQ.

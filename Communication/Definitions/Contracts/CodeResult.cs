@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ForeCastle.Communication.Definitions.Contracts
+namespace RabbitMQDemo.Communication.Definitions.Contracts
 {
 	/// <summary>
 	/// Generic communication contract used as return type of method. 

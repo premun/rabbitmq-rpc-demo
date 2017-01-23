@@ -2,7 +2,7 @@
 using ForeCastle.Library;
 using RabbitMQ.Client;
 
-namespace ForeCastle.Communication.Utils
+namespace RabbitMQDemo.Communication.Utils
 {
 	/// <summary>
 	/// Contains utility methods for work with queues.

@@ -1,4 +1,4 @@
-﻿namespace ForeCastle.Communication.CommunicationService
+﻿namespace RabbitMQDemo.Communication.CommunicationService
 {
 	/// <summary>
 	/// Exception thrown at RPC-client side when the RPC-listener crashed. 

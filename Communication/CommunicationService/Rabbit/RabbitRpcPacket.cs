@@ -1,7 +1,7 @@
 ﻿using System;
 using ForeCastle.Library;
 
-namespace ForeCastle.Communication.CommunicationService.Rabbit
+namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 {
 	/// <summary>
 	/// RPC packet used for work with RabbitCommunicationService.

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using ForeCastle.Communication.Utils;
 using ForeCastle.Library;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
+using RabbitMQDemo.Communication.Utils;
 
-namespace ForeCastle.Communication.CommunicationService.Rabbit
+namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 {
 	/// <summary>
 	/// Communication service implementation using RabbitMQ for message interchange.
@@ -52,7 +52,7 @@ namespace ForeCastle.Communication.CommunicationService.Rabbit
 
 		public void DeleteQueue(string queueName)
 		{
-			using (var channel = _rabbitConnection.CreateModel())
+			using (IModel channel = _rabbitConnection.CreateModel())
 			{
 				channel.QueueDelete(queueName);
 			}
@@ -62,7 +62,7 @@ namespace ForeCastle.Communication.CommunicationService.Rabbit
 
 		public void Publish(string targetQueue, IEnumerable<WorkCommunicationPacket> packets, bool hasDeadLetterExchange = false)
 		{
-			using (var channel = _rabbitConnection.CreateModel())
+			using (IModel channel = _rabbitConnection.CreateModel())
 			{
 				var queueOptions = new Dictionary<string, object>
 				{
@@ -108,16 +108,17 @@ namespace ForeCastle.Communication.CommunicationService.Rabbit
 		{
 			try
 			{
-				using (var channel = _rabbitConnection.CreateModel())
+				using (IModel channel = _rabbitConnection.CreateModel())
 				{
 					// Should throw exception if queue does not exist or exists on another connection.
-					var queueInfo = channel.QueueDeclarePassive(queueName);
+					QueueDeclareOk queueInfo = channel.QueueDeclarePassive(queueName);
 
 					// This code is execute if RPC call was from the same connection as consumer.
 					if (queueInfo.ConsumerCount > 0)
 					{
 						return true;
 					}
+
 					return false;
 				}
 			}
@@ -128,11 +129,13 @@ namespace ForeCastle.Communication.CommunicationService.Rabbit
 					// Exclusive lock code, the queue is lock by another connection => there exist listener.
 					return true;
 				}
+
 				if (ex.ShutdownReason.ReplyCode == 404)
 				{
 					// Passive declaration exception, queue does not exists
 					return false;
 				}
+
 				throw new InvalidOperationException("Unknown code of OperationInterruptedException.", ex);
 			}
 		}
@@ -170,7 +173,7 @@ namespace ForeCastle.Communication.CommunicationService.Rabbit
 			{
 				if (!ExistsListenerOnQueue(targetQueue))
 				{
-					throw new CommunicationException(string.Format("Target queue `{0}` does not have any listener.", targetQueue));
+					throw new CommunicationException($"Target queue `{targetQueue}` does not have any listener.");
 				}
 
 				RabbitRpcPacket sendRpcPacket = new RabbitRpcPacket
@@ -179,7 +182,7 @@ namespace ForeCastle.Communication.CommunicationService.Rabbit
 					Body = sendPacket
 				};
 					
-				using (var channel = _rabbitConnection.CreateModel())
+				using (IModel channel = _rabbitConnection.CreateModel())
 				{
 					// Send the call and wait for the answer
 					// Declare the response queue
@@ -209,7 +212,7 @@ namespace ForeCastle.Communication.CommunicationService.Rabbit
 						return null;
 					}
 
-					var recievedRpcPacket = DequeueRpcPacket(consumer, correlationId);
+					RabbitRpcPacket recievedRpcPacket = DequeueRpcPacket(consumer, correlationId);
 
 					if (recievedRpcPacket.Error)
 					{
@@ -222,6 +225,7 @@ namespace ForeCastle.Communication.CommunicationService.Rabbit
 			catch (CommunicationException)
 			{
 				// Do not catch exception (re-throw)
+				// Target does not exist
 				throw;
 			}
 			catch (Exception e)
@@ -233,11 +237,7 @@ namespace ForeCastle.Communication.CommunicationService.Rabbit
 
 		public IRpcCommunicationListener CreateRpcCommunicationListener(Func<string, RpcCommunicationPacket, RpcCommunicationPacket> listeningFunction)
 		{
-			var rpcCommunicationListener = new RabbitRpcCommunicationListener(
-				                               _logger,
-				                               _rabbitConnection,
-				                               _processQueueName, 
-				                               listeningFunction);
+			var rpcCommunicationListener = new RabbitRpcCommunicationListener(_logger, _rabbitConnection, _processQueueName, listeningFunction);
 			return rpcCommunicationListener;
 		}
 
