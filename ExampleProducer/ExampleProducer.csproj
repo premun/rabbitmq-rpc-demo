@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExampleProducer.cs" />
+    <Compile Include="ExampleProducerIdentifier.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -63,6 +64,10 @@
     <ProjectReference Include="..\Communication\Communication.csproj">
       <Project>{ea74b8a7-efec-4e66-9813-7564c4ae556a}</Project>
       <Name>Communication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExampleConsumer\ExampleConsumer.csproj">
+      <Project>{B3A7E261-B408-4EED-BA30-5801A8CD3AD2}</Project>
+      <Name>ExampleConsumer</Name>
     </ProjectReference>
     <ProjectReference Include="..\Library\Library.csproj">
       <Project>{6225A2E3-6131-40EA-B69C-9D4F22DD9033}</Project>

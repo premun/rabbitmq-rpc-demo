@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace ForeCastle.Library.Identifier
+namespace RabbitMQDemo.Library
 {
 	/// <summary>
 	/// Identifiers of the distributed system nodes.

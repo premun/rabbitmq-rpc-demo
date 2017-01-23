@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Threading;
-using ForeCastle.Library;
-using ForeCastle.Library.Identifier;
 using RabbitMQDemo.Communication.Definitions;
 using RabbitMQDemo.Communication.Listeners;
 using RabbitMQDemo.Communication.Listeners.Factory;
+using RabbitMQDemo.Library;
 
 namespace RabbitMQDemo.ExampleConsumer
 {

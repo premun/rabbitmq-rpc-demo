@@ -1,5 +1,5 @@
 ﻿using System;
-using ForeCastle.Library;
+using RabbitMQDemo.Library;
 
 namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 {

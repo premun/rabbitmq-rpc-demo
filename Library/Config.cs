@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace ForeCastle.Library
+namespace RabbitMQDemo.Library
 {
     /// <summary>
     /// Thread safe singleton configuration

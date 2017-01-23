@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Reflection;
 using System.Threading;
-using ForeCastle.Library;
 using RabbitMQDemo.Communication.CommunicationService;
+using RabbitMQDemo.Library;
 
 namespace RabbitMQDemo.Communication.Listeners
 {

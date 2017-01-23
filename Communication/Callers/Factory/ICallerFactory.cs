@@ -1,4 +1,4 @@
-﻿using ForeCastle.Library.Identifier;
+﻿using RabbitMQDemo.Library;
 
 namespace RabbitMQDemo.Communication.Callers.Factory
 {

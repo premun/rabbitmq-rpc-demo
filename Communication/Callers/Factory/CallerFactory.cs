@@ -1,5 +1,5 @@
-﻿using ForeCastle.Library.Identifier;
-using RabbitMQDemo.Communication.CommunicationService;
+﻿using RabbitMQDemo.Communication.CommunicationService;
+using RabbitMQDemo.Library;
 
 namespace RabbitMQDemo.Communication.Callers.Factory
 {

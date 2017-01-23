@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ForeCastle.Library;
 using RabbitMQDemo.Communication.CommunicationService;
+using RabbitMQDemo.Library;
 
 namespace RabbitMQDemo.Communication.Publishers
 {

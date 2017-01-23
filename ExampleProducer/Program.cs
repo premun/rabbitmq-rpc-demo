@@ -1,8 +1,8 @@
 ﻿using System;
 using Autofac;
-using ForeCastle.Library.Autofac;
-using ForeCastle.Library.Identifier;
 using RabbitMQDemo.Communication.Autofac;
+using RabbitMQDemo.Library;
+using RabbitMQDemo.Library.Autofac;
 
 namespace RabbitMQDemo.ExampleProducer
 {
@@ -12,7 +12,7 @@ namespace RabbitMQDemo.ExampleProducer
 		{
 			var builder = new ContainerBuilder();
 
-			var id = new ProducerIdentifier();
+			var id = new ExampleProducerIdentifier();
 
 			builder.RegisterModule(new LibraryModule(null));
 			builder.RegisterModule(new CommunicationModule(id.RpcName));

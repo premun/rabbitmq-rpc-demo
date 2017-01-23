@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using ForeCastle.Library;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
 using RabbitMQDemo.Communication.Utils;
+using RabbitMQDemo.Library;
 
 namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 {

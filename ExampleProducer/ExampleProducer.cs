@@ -2,9 +2,10 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using Autofac;
-using ForeCastle.Library.Identifier;
 using RabbitMQDemo.Communication.Callers.Factory;
 using RabbitMQDemo.Communication.Definitions;
+using RabbitMQDemo.ExampleConsumer;
+using RabbitMQDemo.Library;
 
 namespace RabbitMQDemo.ExampleProducer
 {
@@ -27,8 +28,8 @@ namespace RabbitMQDemo.ExampleProducer
 				return;
 			}
 
-			var id = new ConsumerIdentifier(consumerId);
-			IExampleConsumer caller = GetCallerProxy(id);
+			var id = new ExampleConsumerIdentifier(consumerId);
+			var caller = GetCallerProxy<IExampleConsumer>(id);
 
 			var mathRegex = new Regex("^[0-9]+x[0-9]+$");
 
@@ -51,18 +52,20 @@ namespace RabbitMQDemo.ExampleProducer
 
 					int result = caller.Multiply(numbers[0], numbers[1]);
 
-					Console.WriteLine($"{numbers[0]} x {numbers[1]} = {result}");
+					Console.WriteLine($"{numbers[0]} x {numbers[1]} = {result}\n");
 				}
 				else
 				{
+					Console.WriteLine("Sending message..");
 					caller.DisplayMessage(message);
+					Console.WriteLine("Message sent\n");
 				}
 			}
 		}
 
-		private IExampleConsumer GetCallerProxy(Identifier id)
+		private T GetCallerProxy<T>(Identifier id)
 		{
-			return _container.Resolve<ICallerFactory>().CreateCaller<IExampleConsumer>(id);
+			return _container.Resolve<ICallerFactory>().CreateCaller<T>(id);
 		}
 	}
 }

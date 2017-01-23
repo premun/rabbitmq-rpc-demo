@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using ForeCastle.Library;
 using RabbitMQ.Client;
+using RabbitMQDemo.Library;
 
 namespace RabbitMQDemo.Communication.Utils
 {

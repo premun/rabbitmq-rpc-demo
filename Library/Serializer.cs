@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace ForeCastle.Library
+namespace RabbitMQDemo.Library
 {
 	/// <summary>
 	/// Provides object serialization (byte or json). 

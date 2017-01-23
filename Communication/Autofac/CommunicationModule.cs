@@ -1,9 +1,9 @@
 ﻿using Autofac;
-using ForeCastle.Library;
 using RabbitMQDemo.Communication.Callers.Factory;
 using RabbitMQDemo.Communication.CommunicationService;
 using RabbitMQDemo.Communication.CommunicationService.Rabbit;
 using RabbitMQDemo.Communication.Listeners.Factory;
+using RabbitMQDemo.Library;
 
 namespace RabbitMQDemo.Communication.Autofac
 {

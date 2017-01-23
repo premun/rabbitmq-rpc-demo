@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace ForeCastle.Library
+namespace RabbitMQDemo.Library
 {
 	/// <summary>
 	/// Interface of logger. Provide logging functionality of forecastle applications.

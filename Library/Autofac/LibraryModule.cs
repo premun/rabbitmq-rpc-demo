@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-namespace ForeCastle.Library.Autofac
+namespace RabbitMQDemo.Library.Autofac
 {
 	/// <summary>
 	/// Autofac module which initialize classes from library project.

@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using System.Runtime.Remoting.Messaging;
 using System.Runtime.Remoting.Proxies;
-using ForeCastle.Library;
 using RabbitMQDemo.Communication.CommunicationService;
+using RabbitMQDemo.Library;
 
 namespace RabbitMQDemo.Communication.Callers
 {

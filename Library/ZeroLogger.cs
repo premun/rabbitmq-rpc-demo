@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ForeCastle.Library
+namespace RabbitMQDemo.Library
 {
 	/// <summary>
 	/// Logger that has no real output. Can be used for testing purposes.

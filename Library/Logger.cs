@@ -3,7 +3,7 @@ using NLog;
 using NLog.Config;
 using NLog.Targets;
 
-namespace ForeCastle.Library
+namespace RabbitMQDemo.Library
 {
 	/// <summary>
 	/// NLog iplementation of logger. Provide logging functionality of forecastle applications
