@@ -1,23 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Autofac;
-using RabbitMQDemo.Communication.Callers.Factory;
 using RabbitMQDemo.Communication.Definitions;
 using RabbitMQDemo.ExampleConsumer;
-using RabbitMQDemo.Library;
 
 namespace RabbitMQDemo.ExampleProducer
 {
 	public class ExampleProducer
 	{
-		private readonly IContainer _container;
-
-		public ExampleProducer(IContainer container)
-		{
-			_container = container;
-		}
-
 		public void Run()
 		{
 			Console.Write("Who do you want to talk to?\n> ");
@@ -29,7 +19,7 @@ namespace RabbitMQDemo.ExampleProducer
 			}
 
 			var id = new ExampleConsumerIdentifier(consumerId);
-			var caller = GetCallerProxy<IExampleConsumer>(id);
+			var caller = Program.GetCaller<IExampleConsumer>(id);
 
 			var mathRegex = new Regex("^[0-9]+x[0-9]+$");
 
@@ -61,11 +51,6 @@ namespace RabbitMQDemo.ExampleProducer
 					Console.WriteLine("Message sent\n");
 				}
 			}
-		}
-
-		private T GetCallerProxy<T>(Identifier id)
-		{
-			return _container.Resolve<ICallerFactory>().CreateCaller<T>(id);
 		}
 	}
 }
