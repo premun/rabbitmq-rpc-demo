@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EA74B8A7-EFEC-4E66-9813-7564C4AE556A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>ForeCastle.Communication</RootNamespace>
+    <AssemblyName>Communication</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <StyleCopOverrideSettingsFile>Settings.StyleCop</StyleCopOverrideSettingsFile>
+    <BuildToolsStyleCopVersion>4.7.44.0</BuildToolsStyleCopVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <StyleCopEnabled>False</StyleCopEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <StyleCopEnabled>True</StyleCopEnabled>
+    <StyleCopTreatErrorsAsWarnings>False</StyleCopTreatErrorsAsWarnings>
+    <DocumentationFile>bin\Release\Communication.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="RabbitMQ.Client, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
+      <HintPath>..\packages\RabbitMQ.Client.4.1.1\lib\net451\RabbitMQ.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="Consumers\IDeadLetterConsumer.cs" />
+    <Compile Include="Definitions\IConsumer.cs" />
+    <Compile Include="CommunicationService\MethodCallContext.cs" />
+    <Compile Include="Listeners\IListener.cs" />
+    <Compile Include="CommunicationService\CommunicationListenerCrashedException.cs" />
+    <Compile Include="CommunicationService\CommunicationServiceException.cs" />
+    <Compile Include="CommunicationService\ICommunicationService.cs" />
+    <Compile Include="CommunicationService\IRpcCommunicationListener.cs" />
+    <Compile Include="CommunicationService\RpcCommunicationPacket.cs" />
+    <Compile Include="CommunicationService\Rabbit\RabbitCommunicationService.cs" />
+    <Compile Include="CommunicationService\Rabbit\RabbitRpcCommunicationListener.cs" />
+    <Compile Include="CommunicationService\Rabbit\RabbitRpcPacket.cs" />
+    <Compile Include="Utils\MethodCallLogger.cs" />
+    <Compile Include="Utils\QueueUtils.cs" />
+    <Compile Include="Utils\TypeOperations\TypeOperationsService.cs" />
+    <Compile Include="Utils\TypeOperations\TypeOperationsSuites\BaseTypeOperationsSuite.cs" />
+    <Compile Include="Utils\TypeOperations\TypeOperationsSuites\ByteArrayOperationSuite.cs" />
+    <Compile Include="Utils\TypeOperations\TypeOperationsSuites\ByteOperationSuite.cs" />
+    <Compile Include="Utils\TypeOperations\TypeOperationsSuites\EnumOperaionSuite.cs" />
+    <Compile Include="Utils\TypeOperations\TypeOperationsSuites\IntOperationsSuite.cs" />
+    <Compile Include="Utils\TypeOperations\TypeOperationsSuites\ITypeOperationsSuite.cs" />
+    <Compile Include="Utils\TypeOperations\TypeOperationsSuites\StringOperationsSuite.cs" />
+    <Compile Include="Listeners\UniversalListener.cs" />
+    <Compile Include="Callers\UniversalCallerProxy.cs" />
+    <Compile Include="Utils\TypeOperations\TypeOperationsSuites\BoolOperationsSuite.cs" />
+    <Compile Include="Utils\TypeOperations\TypeOperationsSuites\ListOperationsSuite.cs" />
+    <Compile Include="Autofac\CommunicationModule.cs" />
+    <Compile Include="Callers\Factory\ICallerFactory.cs" />
+    <Compile Include="Callers\Factory\UniversalCallerFactory.cs" />
+    <Compile Include="Listeners\Factory\UniversalListenerFactory.cs" />
+    <Compile Include="Listeners\Factory\IListenerFactory.cs" />
+    <Compile Include="Utils\TypeOperations\TypeOperationsSuites\ContractOperationSuite.cs" />
+    <Compile Include="Definitions\Contracts\CodeResult.cs" />
+    <Compile Include="CommunicationService\WorkCommunicationPacket.cs" />
+    <Compile Include="CommunicationService\ICommunicationConsumer.cs" />
+    <Compile Include="CommunicationService\Rabbit\RabbitCommunicationConsumer.cs" />
+    <Compile Include="Consumers\UniversalConsumer.cs" />
+    <Compile Include="Consumers\IConsumer.cs" />
+    <Compile Include="Publishers\UniversalPublisher.cs" />
+    <Compile Include="Publishers\IPublisher.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Library\Library.csproj">
+      <Project>{6225A2E3-6131-40EA-B69C-9D4F22DD9033}</Project>
+      <Name>Library</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,100 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{5AAF491A-AE1E-40D3-A2CA-4387DC9F376A}"
+	ProjectSection(SolutionItems) = preProject
+		NLog.config = NLog.config
+		RabbitMQDemo.properties = RabbitMQDemo.properties
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{108DF299-E9B7-4E38-B171-C82BD12EBFC2}"
+	ProjectSection(SolutionItems) = preProject
+		Settings.StyleCop = Settings.StyleCop
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "Library\Library.csproj", "{6225A2E3-6131-40EA-B69C-9D4F22DD9033}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Producer", "Producer\Producer.csproj", "{A52B9980-4C26-4B47-81AB-E7E5F4A30046}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consumer", "Consumer\Consumer.csproj", "{B3A7E261-B408-4EED-BA30-5801A8CD3AD2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Communication", "Communication\Communication.csproj", "{EA74B8A7-EFEC-4E66-9813-7564C4AE556A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		WIN|Any CPU = WIN|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6225A2E3-6131-40EA-B69C-9D4F22DD9033}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6225A2E3-6131-40EA-B69C-9D4F22DD9033}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6225A2E3-6131-40EA-B69C-9D4F22DD9033}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6225A2E3-6131-40EA-B69C-9D4F22DD9033}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6225A2E3-6131-40EA-B69C-9D4F22DD9033}.WIN|Any CPU.ActiveCfg = WIN|Any CPU
+		{6225A2E3-6131-40EA-B69C-9D4F22DD9033}.WIN|Any CPU.Build.0 = WIN|Any CPU
+		{A52B9980-4C26-4B47-81AB-E7E5F4A30046}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A52B9980-4C26-4B47-81AB-E7E5F4A30046}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A52B9980-4C26-4B47-81AB-E7E5F4A30046}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A52B9980-4C26-4B47-81AB-E7E5F4A30046}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A52B9980-4C26-4B47-81AB-E7E5F4A30046}.WIN|Any CPU.ActiveCfg = WIN|Any CPU
+		{A52B9980-4C26-4B47-81AB-E7E5F4A30046}.WIN|Any CPU.Build.0 = WIN|Any CPU
+		{B3A7E261-B408-4EED-BA30-5801A8CD3AD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3A7E261-B408-4EED-BA30-5801A8CD3AD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3A7E261-B408-4EED-BA30-5801A8CD3AD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3A7E261-B408-4EED-BA30-5801A8CD3AD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3A7E261-B408-4EED-BA30-5801A8CD3AD2}.WIN|Any CPU.ActiveCfg = WIN|Any CPU
+		{B3A7E261-B408-4EED-BA30-5801A8CD3AD2}.WIN|Any CPU.Build.0 = WIN|Any CPU
+		{EA74B8A7-EFEC-4E66-9813-7564C4AE556A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA74B8A7-EFEC-4E66-9813-7564C4AE556A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA74B8A7-EFEC-4E66-9813-7564C4AE556A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA74B8A7-EFEC-4E66-9813-7564C4AE556A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA74B8A7-EFEC-4E66-9813-7564C4AE556A}.WIN|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA74B8A7-EFEC-4E66-9813-7564C4AE556A}.WIN|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = API\API.csproj
+		Policies = $0
+		$0.TextStylePolicy = $1
+		$1.TabsToSpaces = False
+		$1.inheritsSet = VisualStudio
+		$1.inheritsScope = text/plain
+		$1.scope = text/x-csharp
+		$0.CSharpFormattingPolicy = $2
+		$2.IndentSwitchBody = True
+		$2.IndentBlocksInsideExpressions = True
+		$2.AnonymousMethodBraceStyle = NextLine
+		$2.PropertyBraceStyle = NextLine
+		$2.PropertyGetBraceStyle = NextLine
+		$2.PropertySetBraceStyle = NextLine
+		$2.EventBraceStyle = NextLine
+		$2.EventAddBraceStyle = NextLine
+		$2.EventRemoveBraceStyle = NextLine
+		$2.StatementBraceStyle = NextLine
+		$2.ElseNewLinePlacement = NewLine
+		$2.CatchNewLinePlacement = NewLine
+		$2.FinallyNewLinePlacement = NewLine
+		$2.WhileNewLinePlacement = DoNotCare
+		$2.ArrayInitializerWrapping = DoNotChange
+		$2.ArrayInitializerBraceStyle = NextLine
+		$2.BeforeMethodDeclarationParentheses = False
+		$2.BeforeMethodCallParentheses = False
+		$2.BeforeConstructorDeclarationParentheses = False
+		$2.NewLineBeforeConstructorInitializerColon = NewLine
+		$2.NewLineAfterConstructorInitializerColon = SameLine
+		$2.BeforeDelegateDeclarationParentheses = False
+		$2.NewParentheses = False
+		$2.SpacesBeforeBrackets = False
+		$2.inheritsSet = Mono
+		$2.inheritsScope = text/x-csharp
+		$2.scope = text/x-csharp
+		$0.StandardHeader = $3
+		$3.Text = 
+		$3.IncludeInNewFiles = True
+	EndGlobalSection
+EndGlobal
