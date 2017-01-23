@@ -6,46 +6,35 @@ namespace RabbitMQDemo.Communication.Consumers
 {
 	/// <summary>
 	/// Consume packets of TPacket on the given queue. 
-	/// For more details <see href="https://sites.google.com/site/logioforecastle/navody/communication-project/publish-consume"/>
 	/// </summary>
 	/// <typeparam name="TPacket">Type of consuming packet</typeparam>
-	public class UniversalConsumer<TPacket> : IConsumer<TPacket>, IDeadLetterConsumer<TPacket> where TPacket : class
+	public class Consumer<TPacket> : IDeadLetterConsumer<TPacket> where TPacket : class
 	{
 		private ICommunicationConsumer _communicationConsumer;
-		private ushort _prefetch = 1;
-		private readonly string _consumeQueueName;
 		private readonly ICommunicationService _communicationService;
 		private readonly Dictionary<TPacket, WorkCommunicationPacket> _unAckJobs = new Dictionary<TPacket, WorkCommunicationPacket>();
 		private readonly bool _hasDeadLetterExchange;
 
-		public UniversalConsumer(ICommunicationService communicationService, string consumeQueueName)
+		public Consumer(ICommunicationService communicationService, string consumeQueueName)
 		{
 			_communicationService = communicationService;
-			_consumeQueueName = consumeQueueName;
+			ConsumeQueueName = consumeQueueName;
 		}
 
-		public UniversalConsumer(ICommunicationService communicationService, string consumeQueueName, bool hasDlx)
+		public Consumer(ICommunicationService communicationService, string consumeQueueName, bool hasDlx)
 			: this(communicationService, consumeQueueName)
 		{
 			_hasDeadLetterExchange = hasDlx;
 		}
 
-		public string ConsumeQueueName
-		{
-			get { return _consumeQueueName; }
-		}
+		public string ConsumeQueueName { get; }
 
-		public ushort Prefetch
-		{
-			get { return _prefetch; }
-
-			set { _prefetch = value; }
-		}
+		public ushort Prefetch { get; set; } = 1;
 
 		public void StartConsume()
 		{
-			_communicationConsumer = _communicationService.CreateConsumer(_consumeQueueName);
-			_communicationConsumer.Prefetch = _prefetch;
+			_communicationConsumer = _communicationService.CreateConsumer(ConsumeQueueName);
+			_communicationConsumer.Prefetch = Prefetch;
 			_communicationConsumer.StartConsume(_hasDeadLetterExchange);
 		}
 
@@ -64,6 +53,7 @@ namespace RabbitMQDemo.Communication.Consumers
 				_unAckJobs.Add(packet, communicationPacket);
 				return true;
 			}
+
 			packet = null;
 			return false;
 		}
@@ -74,6 +64,7 @@ namespace RabbitMQDemo.Communication.Consumers
 			{
 				return _unAckJobs[packet].Headers;
 			}
+
 			return null;
 		}
 
@@ -120,6 +111,7 @@ namespace RabbitMQDemo.Communication.Consumers
 			{
 				throw new CommunicationException("This packet does not come from this consumer or was already (n)acked.");
 			}
+
 			return true;
 		}
 	}

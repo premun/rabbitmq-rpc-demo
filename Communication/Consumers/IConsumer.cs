@@ -4,8 +4,7 @@ using System.Collections.Generic;
 namespace RabbitMQDemo.Communication.Consumers
 {
 	/// <summary>
-	/// Consume packets of TPacket on the given queue. 
-	/// For more details <see href="https://sites.google.com/site/logioforecastle/navody/communication-project/publish-consume"/>
+	/// Consume packets of TPacket on the given queue.
 	/// </summary>
 	/// <typeparam name="TPacket">Type of consuming packet</typeparam>
 	public interface IConsumer<TPacket> : IDisposable

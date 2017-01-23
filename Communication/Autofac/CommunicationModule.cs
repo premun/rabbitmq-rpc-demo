@@ -25,7 +25,7 @@ namespace RabbitMQDemo.Communication.Autofac
 				.As<ICommunicationService>()
 				.SingleInstance();
 
-			builder.RegisterType<UniversalCallerFactory>()
+			builder.RegisterType<CallerFactory>()
 				.As<ICallerFactory>()
 				.SingleInstance();
 

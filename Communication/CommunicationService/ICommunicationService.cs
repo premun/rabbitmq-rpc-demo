@@ -14,7 +14,6 @@ namespace RabbitMQDemo.Communication.CommunicationService
 
 	/// <summary>
 	/// Provides low-level communication based on queues. The service is a abstraction of communication layer.
-	/// For more details <see href="https://sites.google.com/site/logioforecastle/navody/communication-project/icommunicationservice"/>
 	/// </summary>
 	public interface ICommunicationService : IDisposable
 	{

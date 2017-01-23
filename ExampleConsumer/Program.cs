@@ -5,7 +5,7 @@ using ForeCastle.Library.Autofac;
 using ForeCastle.Library.Identifier;
 using RabbitMQDemo.Communication.Autofac;
 
-namespace ForeCastle.Consumer
+namespace RabbitMQDemo.ExampleConsumer
 {
 	public class Program
 	{
@@ -18,7 +18,7 @@ namespace ForeCastle.Consumer
 			builder.RegisterModule(new LibraryModule(id.RpcName));
 			builder.RegisterModule(new CommunicationModule(id.RpcName));
 			builder.Register(c => id).As<Identifier>();
-			builder.RegisterType<Consumer>();
+			builder.RegisterType<ExampleConsumer>();
 
 			return builder.Build();
 		}
@@ -31,11 +31,11 @@ namespace ForeCastle.Consumer
 			{
 				var container = InitAutofacContainer(args[0]);
 				logger = container.Resolve<ILogger>();
-				var consumer = container.Resolve<Consumer>();
+				var consumer = container.Resolve<ExampleConsumer>();
 			}
 			catch (Exception ex)
 			{
-				logger?.Fatal("Consumer has failed with fatal error: {0}.", ex);
+				logger?.Fatal("ExampleConsumer has failed with fatal error: {0}.", ex);
 				Environment.Exit(1);
 			}
 		}

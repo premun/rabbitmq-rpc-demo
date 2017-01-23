@@ -4,7 +4,7 @@ using ForeCastle.Library.Autofac;
 using ForeCastle.Library.Identifier;
 using RabbitMQDemo.Communication.Autofac;
 
-namespace ForeCastle.Producer
+namespace RabbitMQDemo.ExampleProducer
 {
 	public class Program
 	{
@@ -23,7 +23,7 @@ namespace ForeCastle.Producer
 
 		public static void Main(string[] args)
 		{
-			new Producer(InitContainer()).Run();
+			new ExampleProducer(InitContainer()).Run();
 			Environment.Exit(0);
 		}
 	}

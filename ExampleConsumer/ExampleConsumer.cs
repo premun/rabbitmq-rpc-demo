@@ -6,23 +6,23 @@ using RabbitMQDemo.Communication.Definitions;
 using RabbitMQDemo.Communication.Listeners;
 using RabbitMQDemo.Communication.Listeners.Factory;
 
-namespace ForeCastle.Consumer
+namespace RabbitMQDemo.ExampleConsumer
 {
-	public class Consumer : IConsumer
+	public class ExampleConsumer : IExampleConsumer
 	{
 		private readonly ILogger _logger;
-		private readonly IListener<IConsumer> _listener;
+		private readonly IListener<IExampleConsumer> _listener;
 
-		public Consumer(
+		public ExampleConsumer(
 			ILogger logger,
 			IListenerFactory listenerFactory,
 			Identifier workerIdentifier)
 		{
 			_logger = logger;
-			_listener = listenerFactory.CreateListener<IConsumer>();
+			_listener = listenerFactory.CreateListener<IExampleConsumer>();
 			_listener.StartListen(this);
 
-			_logger.Info("Consumer #" + workerIdentifier.Id + " started");
+			_logger.Info("ExampleConsumer #" + workerIdentifier.Id + " started");
 		}
 
 		public void DisplayMessage(string message)
@@ -38,7 +38,7 @@ namespace ForeCastle.Consumer
 			{
 				_listener.StopListen();
 				Thread.Sleep(1000);
-				_logger.Info("Consumer killed");
+				_logger.Info("ExampleConsumer killed");
 				Environment.Exit(0);
 			});
 

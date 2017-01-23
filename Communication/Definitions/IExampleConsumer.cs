@@ -1,6 +1,6 @@
 ﻿namespace RabbitMQDemo.Communication.Definitions
 {
-	public interface IConsumer
+	public interface IExampleConsumer
 	{
 		void DisplayMessage(string message);
 

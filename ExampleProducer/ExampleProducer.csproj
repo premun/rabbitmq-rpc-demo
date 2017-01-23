@@ -5,8 +5,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{A52B9980-4C26-4B47-81AB-E7E5F4A30046}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ForeCastle.Producer</RootNamespace>
-    <AssemblyName>Producer</AssemblyName>
+    <RootNamespace>RabbitMQDemo.ExampleProducer</RootNamespace>
+    <AssemblyName>ExampleProducer</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <StyleCopOverrideSettingsFile>Settings.StyleCop</StyleCopOverrideSettingsFile>
     <BuildToolsStyleCopVersion>4.7.44.0</BuildToolsStyleCopVersion>
@@ -33,7 +33,7 @@
     <Externalconsole>true</Externalconsole>
     <StyleCopEnabled>True</StyleCopEnabled>
     <UseVSHostingProcess>true</UseVSHostingProcess>
-    <DocumentationFile>bin\Release\Producer.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\ExampleProducer.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'WIN|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -54,7 +54,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Producer.cs" />
+    <Compile Include="ExampleProducer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

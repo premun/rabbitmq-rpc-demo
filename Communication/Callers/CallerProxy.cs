@@ -8,15 +8,14 @@ namespace RabbitMQDemo.Communication.Callers
 {
 	/// <summary>
 	/// Creates RPC caller of interface T.
-	/// For definition of caller <see href="https://sites.google.com/site/logioforecastle/navody/communication-project/rpc"/>
 	/// </summary>
 	/// <typeparam name="T">Caller interface</typeparam>
-	public class UniversalCallerProxy<T> : RealProxy
+	public class CallerProxy<T> : RealProxy
 	{
 		private readonly string _targetQueueName;
 		private readonly ICommunicationService _communicationService;
 
-		private UniversalCallerProxy(
+		private CallerProxy(
 			ICommunicationService communicationService,
 			string targetQueueName)
 			: base(typeof(T))
@@ -35,7 +34,7 @@ namespace RabbitMQDemo.Communication.Callers
 			ICommunicationService communicationService,
 			string targetQueueName)
 		{
-			return (T)new UniversalCallerProxy<T>(communicationService, targetQueueName).GetTransparentProxy();
+			return (T)new CallerProxy<T>(communicationService, targetQueueName).GetTransparentProxy();
 		}
 
 		public override IMessage Invoke(IMessage msg)

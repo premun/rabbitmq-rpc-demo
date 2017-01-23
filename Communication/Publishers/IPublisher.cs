@@ -4,8 +4,7 @@ using System.Collections.Generic;
 namespace RabbitMQDemo.Communication.Publishers
 {
 	/// <summary>
-	/// Publish packets of TPacket on the given queue. 
-	/// For more details <see href="https://sites.google.com/site/logioforecastle/navody/communication-project/publish-consume"/>
+	/// Publish packets of TPacket on the given queue.
 	/// </summary>
 	/// <typeparam name="TPacket">Type of publishing packet</typeparam>
 	public interface IPublisher<TPacket>

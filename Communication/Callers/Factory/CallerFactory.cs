@@ -1,15 +1,16 @@
-﻿using RabbitMQDemo.Communication.CommunicationService;
+﻿using ForeCastle.Library.Identifier;
+using RabbitMQDemo.Communication.CommunicationService;
 
 namespace RabbitMQDemo.Communication.Callers.Factory
 {
 	/// <summary>
 	/// Factory creating universal callers.
 	/// </summary>
-	public class UniversalCallerFactory : ICallerFactory
+	public class CallerFactory : ICallerFactory
 	{
 		private readonly ICommunicationService _communicationService;
 
-		public UniversalCallerFactory(
+		public CallerFactory(
 			ICommunicationService communicationService)
 		{
 			_communicationService = communicationService;
@@ -17,7 +18,12 @@ namespace RabbitMQDemo.Communication.Callers.Factory
 
 		public T CreateCaller<T>(string targetQueueName)
 		{
-			return UniversalCallerProxy<T>.Create(_communicationService, targetQueueName);
+			return CallerProxy<T>.Create(_communicationService, targetQueueName);
+		}
+
+		public T CreateCaller<T>(Identifier target)
+		{
+			return CallerProxy<T>.Create(_communicationService, target.RpcName);
 		}
 	}
 }

@@ -48,7 +48,7 @@
   <ItemGroup />
   <ItemGroup>
     <Compile Include="Consumers\IDeadLetterConsumer.cs" />
-    <Compile Include="Definitions\IConsumer.cs" />
+    <Compile Include="Definitions\IExampleConsumer.cs" />
     <Compile Include="CommunicationService\MethodCallContext.cs" />
     <Compile Include="Listeners\IListener.cs" />
     <Compile Include="CommunicationService\CommunicationListenerCrashedException.cs" />
@@ -62,19 +62,19 @@
     <Compile Include="Utils\MethodCallLogger.cs" />
     <Compile Include="Utils\QueueUtils.cs" />
     <Compile Include="Listeners\UniversalListener.cs" />
-    <Compile Include="Callers\UniversalCallerProxy.cs" />
+    <Compile Include="Callers\CallerProxy.cs" />
     <Compile Include="Autofac\CommunicationModule.cs" />
     <Compile Include="Callers\Factory\ICallerFactory.cs" />
-    <Compile Include="Callers\Factory\UniversalCallerFactory.cs" />
+    <Compile Include="Callers\Factory\CallerFactory.cs" />
     <Compile Include="Listeners\Factory\UniversalListenerFactory.cs" />
     <Compile Include="Listeners\Factory\IListenerFactory.cs" />
     <Compile Include="Definitions\Contracts\CodeResult.cs" />
     <Compile Include="CommunicationService\WorkCommunicationPacket.cs" />
     <Compile Include="CommunicationService\ICommunicationConsumer.cs" />
     <Compile Include="CommunicationService\Rabbit\RabbitCommunicationConsumer.cs" />
-    <Compile Include="Consumers\UniversalConsumer.cs" />
+    <Compile Include="Consumers\Consumer.cs" />
     <Compile Include="Consumers\IConsumer.cs" />
-    <Compile Include="Publishers\UniversalPublisher.cs" />
+    <Compile Include="Publishers\Publisher.cs" />
     <Compile Include="Publishers\IPublisher.cs" />
   </ItemGroup>
   <ItemGroup>
