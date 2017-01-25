@@ -22,8 +22,7 @@ namespace RabbitMQDemo.Communication.CommunicationService
 		/// </summary>
 		/// <param name="targetQueue">Target queue</param>
 		/// <param name="packets">Packets to send</param>
-		/// <param name="hasDeadLetterExchange">DLX</param>
-		void Publish(string targetQueue, IEnumerable<WorkCommunicationPacket> packets, bool hasDeadLetterExchange = false);
+		void Publish(string targetQueue, IEnumerable<WorkCommunicationPacket> packets);
 
 		/// <summary>
 		/// Creates a consumer which will consume on the consumeQueue.

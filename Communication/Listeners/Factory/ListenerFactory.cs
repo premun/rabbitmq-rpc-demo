@@ -3,14 +3,13 @@
 namespace RabbitMQDemo.Communication.Listeners.Factory
 {
 	/// <summary>
-	/// Factory creating universal listeners. 
-	/// TODO: more detailed comments (every listener factory creates listeners... what are they or why we need factory?)
+	/// Factory creating universal listeners.
 	/// </summary>
-	public class UniversalListenerFactory : IListenerFactory
+	public class ListenerFactory : IListenerFactory
 	{
 		private readonly ICommunicationService _communicationService;
 
-		public UniversalListenerFactory(
+		public ListenerFactory(
 			ICommunicationService communicationService)
 		{
 			_communicationService = communicationService;

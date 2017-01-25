@@ -15,17 +15,11 @@ namespace RabbitMQDemo.Communication.Publishers
 	{
 		private readonly ICommunicationService _communicationService;
 		private readonly string _targetQueue;
-		private readonly bool _hasDeadLetterExchange;
 
 		public Publisher(ICommunicationService communicationService, string targetQueue)
 		{
 			_communicationService = communicationService;
 			_targetQueue = targetQueue;
-		}
-
-		public Publisher(ICommunicationService communicationService, string targetQueue, bool hasDlx) : this(communicationService, targetQueue)
-		{
-			_hasDeadLetterExchange = hasDlx;
 		}
 
 		public void Publish(IEnumerable<TPacket> packets)
@@ -38,7 +32,7 @@ namespace RabbitMQDemo.Communication.Publishers
 				})
 				.ToList();
 
-			_communicationService.Publish(_targetQueue, communicationPackets, _hasDeadLetterExchange);
+			_communicationService.Publish(_targetQueue, communicationPackets);
 		}
 
 		public void Publish(IEnumerable<TPacket> packets, Func<TPacket, byte> prioritySelector)
@@ -51,7 +45,7 @@ namespace RabbitMQDemo.Communication.Publishers
 				})
 				.ToList();
 
-			_communicationService.Publish(_targetQueue, communicationPackets, _hasDeadLetterExchange);
+			_communicationService.Publish(_targetQueue, communicationPackets);
 		}
 
 		public void Publish(IEnumerable<TPacket> packets, IDictionary<string, object> headers)
@@ -65,7 +59,7 @@ namespace RabbitMQDemo.Communication.Publishers
 				})
 				.ToList();
 
-			_communicationService.Publish(_targetQueue, communicationPackets, _hasDeadLetterExchange);
+			_communicationService.Publish(_targetQueue, communicationPackets);
 		}
 	}
 }

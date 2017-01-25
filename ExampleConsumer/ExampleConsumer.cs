@@ -7,7 +7,7 @@ using RabbitMQDemo.Library;
 
 namespace RabbitMQDemo.ExampleConsumer
 {
-	public class ExampleConsumer : IExampleConsumer
+	public class ExampleConsumer : IExampleConsumer, IDisposable
 	{
 		private readonly ILogger _logger;
 		private readonly IListener<IExampleConsumer> _listener;
@@ -29,24 +29,14 @@ namespace RabbitMQDemo.ExampleConsumer
 			_logger.Info("Received message: " + message);
 		}
 
-		public void Kill()
-		{
-			_logger.Info("Killing worker...");
-
-			var killerThread = new Thread(() =>
-			{
-				_listener.StopListen();
-				Thread.Sleep(1000);
-				_logger.Info("ExampleConsumer killed");
-				Environment.Exit(0);
-			});
-
-			killerThread.Start();
-		}
-
 		public int Multiply(int x, int y)
 		{
 			return x * y;
+		}
+
+		public void Dispose()
+		{
+			_listener?.Dispose();
 		}
 	}
 }

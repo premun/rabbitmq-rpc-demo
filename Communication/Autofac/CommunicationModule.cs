@@ -29,7 +29,7 @@ namespace RabbitMQDemo.Communication.Autofac
 				.As<ICallerFactory>()
 				.SingleInstance();
 
-			builder.RegisterType<UniversalListenerFactory>()
+			builder.RegisterType<ListenerFactory>()
 				.As<IListenerFactory>()
 				.SingleInstance();
 		}

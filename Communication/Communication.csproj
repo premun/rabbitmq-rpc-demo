@@ -47,7 +47,6 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup />
   <ItemGroup>
-    <Compile Include="Consumers\IDeadLetterConsumer.cs" />
     <Compile Include="Definitions\IExampleConsumer.cs" />
     <Compile Include="CommunicationService\MethodCallContext.cs" />
     <Compile Include="Listeners\IListener.cs" />
@@ -66,7 +65,7 @@
     <Compile Include="Autofac\CommunicationModule.cs" />
     <Compile Include="Callers\Factory\ICallerFactory.cs" />
     <Compile Include="Callers\Factory\CallerFactory.cs" />
-    <Compile Include="Listeners\Factory\UniversalListenerFactory.cs" />
+    <Compile Include="Listeners\Factory\ListenerFactory.cs" />
     <Compile Include="Listeners\Factory\IListenerFactory.cs" />
     <Compile Include="Definitions\Contracts\CodeResult.cs" />
     <Compile Include="CommunicationService\WorkCommunicationPacket.cs" />

@@ -21,8 +21,7 @@ namespace RabbitMQDemo.Communication.CommunicationService
 		/// <summary>
 		/// Start consume.
 		/// </summary>
-		/// <param name="hasDeadLetterExchange">Detects if the queue should have DLX detection</param>
-		void StartConsume(bool hasDeadLetterExchange = false);
+		void StartConsume();
 
 		/// <summary>
 		/// Stop consume and dispose the resources.

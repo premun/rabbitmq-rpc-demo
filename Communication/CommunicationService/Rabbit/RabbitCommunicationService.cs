@@ -60,7 +60,7 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 
 		#region Publish/Consumer part
 
-		public void Publish(string targetQueue, IEnumerable<WorkCommunicationPacket> packets, bool hasDeadLetterExchange = false)
+		public void Publish(string targetQueue, IEnumerable<WorkCommunicationPacket> packets)
 		{
 			using (IModel channel = _rabbitConnection.CreateModel())
 			{
@@ -71,12 +71,6 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 
 				try
 				{
-					if (hasDeadLetterExchange)
-					{
-						string dlx = QueueUtils.DeclareDeadLetterExchange(channel, targetQueue);
-						queueOptions.Add(QueueUtils.DlxArg, dlx);
-					}
-
 					channel.QueueDeclare(targetQueue, true, false, false, queueOptions);
 				}
 				catch (OperationInterruptedException ex)
@@ -84,9 +78,9 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 					throw new CommunicationException("Already existent queue is not compatible with declared queue. See inner exception for details.", ex);
 				}
 
-				foreach (var packet in packets)
+				foreach (WorkCommunicationPacket packet in packets)
 				{
-					var properties = channel.CreateBasicProperties();
+					IBasicProperties properties = channel.CreateBasicProperties();
 					properties.DeliveryMode = 2;
 					properties.Priority = packet.Priority;
 					properties.Headers = packet.Headers;
@@ -114,26 +108,19 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 					QueueDeclareOk queueInfo = channel.QueueDeclarePassive(queueName);
 
 					// This code is execute if RPC call was from the same connection as consumer.
-					if (queueInfo.ConsumerCount > 0)
-					{
-						return true;
-					}
-
-					return false;
+					return queueInfo.ConsumerCount > 0;
 				}
 			}
 			catch (OperationInterruptedException ex)
 			{
-				if (ex.ShutdownReason.ReplyCode == 405)
+				switch (ex.ShutdownReason.ReplyCode)
 				{
-					// Exclusive lock code, the queue is lock by another connection => there exist listener.
-					return true;
-				}
-
-				if (ex.ShutdownReason.ReplyCode == 404)
-				{
-					// Passive declaration exception, queue does not exists
-					return false;
+					case 405:
+						// Exclusive lock code, the queue is lock by another connection => there exist listener.
+						return true;
+					case 404:
+						// Passive declaration exception, queue does not exists
+						return false;
 				}
 
 				throw new InvalidOperationException("Unknown code of OperationInterruptedException.", ex);
@@ -186,15 +173,15 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 				{
 					// Send the call and wait for the answer
 					// Declare the response queue
-					var replyQueueName = channel.QueueDeclare();
-					var consumer = new QueueingBasicConsumer(channel);
+					QueueDeclareOk replyQueueName = channel.QueueDeclare();
+					QueueingBasicConsumer consumer = new QueueingBasicConsumer(channel);
 					channel.BasicConsume(replyQueueName, true, consumer);
 
 					// Set up rabbit properties (correlation id)
 					// Add info inside message so they know where to reply
-					var correlationId = Guid.NewGuid().ToString();
+					string correlationId = Guid.NewGuid().ToString();
 
-					var properties = channel.CreateBasicProperties();
+					IBasicProperties properties = channel.CreateBasicProperties();
 
 					// If the reply is expected then fill the sender identification
 					if (expectReply)
@@ -213,12 +200,12 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 					}
 
 					RabbitRpcPacket recievedRpcPacket = DequeueRpcPacket(consumer, correlationId);
-
 					if (recievedRpcPacket.Error)
 					{
 						// If listener server crashed with exception throws exception with details about it. 
 						throw new CommunicationListenerCrashedException(recievedRpcPacket.ExceptionMessage, recievedRpcPacket.ExceptionStackTrace);
 					}
+
 					return recievedRpcPacket.Body;
 				}
 			}
@@ -237,7 +224,7 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 
 		public IRpcCommunicationListener CreateRpcCommunicationListener(Func<string, RpcCommunicationPacket, RpcCommunicationPacket> listeningFunction)
 		{
-			var rpcCommunicationListener = new RabbitRpcCommunicationListener(_logger, _rabbitConnection, _processQueueName, listeningFunction);
+			RabbitRpcCommunicationListener rpcCommunicationListener = new RabbitRpcCommunicationListener(_logger, _rabbitConnection, _processQueueName, listeningFunction);
 			return rpcCommunicationListener;
 		}
 
@@ -245,11 +232,13 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 
 		public void Dispose()
 		{
-			if (_rabbitConnection != null && _rabbitConnection.IsOpen)
+			if (_rabbitConnection == null || !_rabbitConnection.IsOpen)
 			{
-				_rabbitConnection.Dispose();
-				_rabbitConnection = null;
+				return;
 			}
+
+			_rabbitConnection.Dispose();
+			_rabbitConnection = null;
 		}
 	}
 }

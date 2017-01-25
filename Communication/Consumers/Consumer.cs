@@ -5,26 +5,19 @@ using RabbitMQDemo.Library;
 namespace RabbitMQDemo.Communication.Consumers
 {
 	/// <summary>
-	/// Consume packets of TPacket on the given queue. 
+	/// Consume packets of TPacket on the given queue.
 	/// </summary>
 	/// <typeparam name="TPacket">Type of consuming packet</typeparam>
-	public class Consumer<TPacket> : IDeadLetterConsumer<TPacket> where TPacket : class
+	public class Consumer<TPacket> : IConsumer<TPacket> where TPacket : class
 	{
 		private ICommunicationConsumer _communicationConsumer;
 		private readonly ICommunicationService _communicationService;
 		private readonly Dictionary<TPacket, WorkCommunicationPacket> _unAckJobs = new Dictionary<TPacket, WorkCommunicationPacket>();
-		private readonly bool _hasDeadLetterExchange;
 
 		public Consumer(ICommunicationService communicationService, string consumeQueueName)
 		{
 			_communicationService = communicationService;
 			ConsumeQueueName = consumeQueueName;
-		}
-
-		public Consumer(ICommunicationService communicationService, string consumeQueueName, bool hasDlx)
-			: this(communicationService, consumeQueueName)
-		{
-			_hasDeadLetterExchange = hasDlx;
 		}
 
 		public string ConsumeQueueName { get; }
@@ -35,7 +28,7 @@ namespace RabbitMQDemo.Communication.Consumers
 		{
 			_communicationConsumer = _communicationService.CreateConsumer(ConsumeQueueName);
 			_communicationConsumer.Prefetch = Prefetch;
-			_communicationConsumer.StartConsume(_hasDeadLetterExchange);
+			_communicationConsumer.StartConsume();
 		}
 
 		public bool Dequeue(int timeout, out TPacket packet)
