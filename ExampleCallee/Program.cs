@@ -4,37 +4,37 @@ using RabbitMQDemo.Communication.Autofac;
 using RabbitMQDemo.Library;
 using RabbitMQDemo.Library.Autofac;
 
-namespace RabbitMQDemo.ExampleConsumer
+namespace RabbitMQDemo.ExampleCallee
 {
 	public class Program
 	{
-		private static IContainer InitAutofacContainer(string workerId)
+		private static IContainer InitAutofacContainer(string name)
 		{
 			var builder = new ContainerBuilder();
 
-			var id = new ExampleConsumerIdentifier(workerId);
+			var id = new ExampleCalleeIdentifier(name);
 
 			builder.RegisterModule(new LibraryModule(id.RpcName));
 			builder.RegisterModule(new CommunicationModule(id.RpcName));
 			builder.Register(c => id).As<Identifier>();
-			builder.RegisterType<ExampleConsumer>();
+			builder.RegisterType<ExampleCallee>();
 
 			return builder.Build();
 		}
 		
 		public static void Main(string[] args)
 		{
-			ILogger logger = null;
+			IContainer container = InitAutofacContainer(args[0]);
 
 			try
 			{
-				var container = InitAutofacContainer(args[0]);
-				logger = container.Resolve<ILogger>();
-				var consumer = container.Resolve<ExampleConsumer>();
+				var consumer = container.Resolve<ExampleCallee>();
+				consumer.Start();
 			}
 			catch (Exception ex)
 			{
-				logger?.Fatal("ExampleConsumer has failed with fatal error: {0}.", ex);
+				var logger = container.Resolve<ILogger>();
+				logger?.Fatal("ExampleCallee has failed with fatal error: {0}.", ex);
 				Environment.Exit(1);
 			}
 		}

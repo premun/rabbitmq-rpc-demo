@@ -47,7 +47,6 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup />
   <ItemGroup>
-    <Compile Include="Definitions\IExampleConsumer.cs" />
     <Compile Include="CommunicationService\MethodCallContext.cs" />
     <Compile Include="Listeners\IListener.cs" />
     <Compile Include="CommunicationService\CommunicationListenerCrashedException.cs" />

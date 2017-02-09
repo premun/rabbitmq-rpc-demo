@@ -2,11 +2,10 @@
 using Autofac;
 using RabbitMQDemo.Communication.Autofac;
 using RabbitMQDemo.Communication.Callers.Factory;
-using RabbitMQDemo.Communication.Definitions;
 using RabbitMQDemo.Library;
 using RabbitMQDemo.Library.Autofac;
 
-namespace RabbitMQDemo.ExampleProducer
+namespace RabbitMQDemo.ExampleCaller
 {
 	public class Program
 	{
@@ -14,7 +13,7 @@ namespace RabbitMQDemo.ExampleProducer
 
 		public static void Main(string[] args)
 		{
-			new ExampleProducer().Run();
+			new ExampleCaller().Run();
 			Environment.Exit(0);
 		}
 
@@ -29,7 +28,7 @@ namespace RabbitMQDemo.ExampleProducer
 		{
 			var builder = new ContainerBuilder();
 
-			var id = new ExampleProducerIdentifier();
+			var id = new ExampleCallerIdentifier();
 
 			builder.RegisterModule(new LibraryModule(null));
 			builder.RegisterModule(new CommunicationModule(id.RpcName));

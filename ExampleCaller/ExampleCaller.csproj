@@ -1,52 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B3A7E261-B408-4EED-BA30-5801A8CD3AD2}</ProjectGuid>
+    <ProjectGuid>{A52B9980-4C26-4B47-81AB-E7E5F4A30046}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RabbitMQDemo.ExampleConsumer</RootNamespace>
-    <AssemblyName>ExampleConsumer</AssemblyName>
+    <RootNamespace>RabbitMQDemo.ExampleCaller</RootNamespace>
+    <AssemblyName>ExampleCaller</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
     <StyleCopOverrideSettingsFile>Settings.StyleCop</StyleCopOverrideSettingsFile>
     <BuildToolsStyleCopVersion>4.7.44.0</BuildToolsStyleCopVersion>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>f0511571</NuGetPackageImportStamp>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Externalconsole>true</Externalconsole>
     <StyleCopEnabled>False</StyleCopEnabled>
-    <Commandlineparameters>127.0.0.1_3 127.0.0.1</Commandlineparameters>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Externalconsole>true</Externalconsole>
+    <StyleCopEnabled>True</StyleCopEnabled>
     <UseVSHostingProcess>true</UseVSHostingProcess>
-    <StyleCopEnabled>true</StyleCopEnabled>
-    <Commandlineparameters>127.0.0.1_1 127.0.0.1</Commandlineparameters>
-    <DocumentationFile>bin\Release\ExampleConsumer.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\ExampleCaller.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'WIN|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\WIN\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>DEBUG;</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -57,21 +49,29 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="Autofac">
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da">
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExampleConsumerIdentifier.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ExampleConsumer.cs" />
+    <Compile Include="ExampleCaller.cs" />
+    <Compile Include="ExampleCallerIdentifier.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
+    <ProjectReference Include="..\CommunicationInterface\CommunicationInterface.csproj">
+      <Project>{CF9BF7FD-6812-4F1D-B344-4B8EECA72892}</Project>
+      <Name>CommunicationInterface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Communication\Communication.csproj">
-      <Project>{EA74B8A7-EFEC-4E66-9813-7564C4AE556A}</Project>
+      <Project>{ea74b8a7-efec-4e66-9813-7564c4ae556a}</Project>
       <Name>Communication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExampleCallee\ExampleCallee.csproj">
+      <Project>{B3A7E261-B408-4EED-BA30-5801A8CD3AD2}</Project>
+      <Name>ExampleCallee</Name>
     </ProjectReference>
     <ProjectReference Include="..\Library\Library.csproj">
       <Project>{6225A2E3-6131-40EA-B69C-9D4F22DD9033}</Project>
@@ -84,5 +84,4 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
