@@ -66,7 +66,7 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 			{
 				var queueOptions = new Dictionary<string, object>
 				{
-					{ QueueUtils.PriorityArg, 10 }
+					{ "x-max-priority", 10 }
 				};
 
 				try

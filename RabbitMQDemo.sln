@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Communication", "Communicat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunicationInterface", "CommunicationInterface\CommunicationInterface.csproj", "{CF9BF7FD-6812-4F1D-B344-4B8EECA72892}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleConsumer", "ExampleConsumer\ExampleConsumer.csproj", "{5DD5706C-4779-401B-BFC4-57E9B2943934}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,12 @@ Global
 		{CF9BF7FD-6812-4F1D-B344-4B8EECA72892}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CF9BF7FD-6812-4F1D-B344-4B8EECA72892}.WIN|Any CPU.ActiveCfg = Release|Any CPU
 		{CF9BF7FD-6812-4F1D-B344-4B8EECA72892}.WIN|Any CPU.Build.0 = Release|Any CPU
+		{5DD5706C-4779-401B-BFC4-57E9B2943934}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DD5706C-4779-401B-BFC4-57E9B2943934}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DD5706C-4779-401B-BFC4-57E9B2943934}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DD5706C-4779-401B-BFC4-57E9B2943934}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DD5706C-4779-401B-BFC4-57E9B2943934}.WIN|Any CPU.ActiveCfg = Release|Any CPU
+		{5DD5706C-4779-401B-BFC4-57E9B2943934}.WIN|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

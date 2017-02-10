@@ -2,7 +2,10 @@
 using RabbitMQDemo.Communication.Callers.Factory;
 using RabbitMQDemo.Communication.CommunicationService;
 using RabbitMQDemo.Communication.CommunicationService.Rabbit;
+using RabbitMQDemo.Communication.Consumers;
 using RabbitMQDemo.Communication.Listeners.Factory;
+using RabbitMQDemo.Communication.Publishers;
+using RabbitMQDemo.CommunicationInterface;
 using RabbitMQDemo.Library;
 
 namespace RabbitMQDemo.Communication.Autofac
@@ -32,6 +35,13 @@ namespace RabbitMQDemo.Communication.Autofac
 			builder.RegisterType<ListenerFactory>()
 				.As<IListenerFactory>()
 				.SingleInstance();
+			
+			builder.Register(c => new Publisher<ExampleMessage>(c.Resolve<ICommunicationService>(), _applicationQueueName))
+				.As<IPublisher<ExampleMessage>>()
+				.SingleInstance();
+			
+			builder.Register(c => new Consumer<ExampleMessage>(c.Resolve<ICommunicationService>(), _applicationQueueName))
+				.As<IConsumer<ExampleMessage>>();
 		}
 	}
 }

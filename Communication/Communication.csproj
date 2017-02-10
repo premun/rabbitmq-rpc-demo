@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>RabbitMQDemo.Communication</RootNamespace>
     <AssemblyName>Communication</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <StyleCopOverrideSettingsFile>Settings.StyleCop</StyleCopOverrideSettingsFile>
     <BuildToolsStyleCopVersion>4.7.44.0</BuildToolsStyleCopVersion>
     <TargetFrameworkProfile />
@@ -45,7 +45,16 @@
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\CommunicationInterface\CommunicationInterface.csproj">
+      <Project>{CF9BF7FD-6812-4F1D-B344-4B8EECA72892}</Project>
+      <Name>CommunicationInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Library\Library.csproj">
+      <Project>{6225A2E3-6131-40EA-B69C-9D4F22DD9033}</Project>
+      <Name>Library</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="CommunicationService\MethodCallContext.cs" />
     <Compile Include="Listeners\IListener.cs" />
@@ -58,7 +67,6 @@
     <Compile Include="CommunicationService\Rabbit\RabbitRpcCommunicationListener.cs" />
     <Compile Include="CommunicationService\Rabbit\RabbitRpcPacket.cs" />
     <Compile Include="Utils\MethodCallLogger.cs" />
-    <Compile Include="Utils\QueueUtils.cs" />
     <Compile Include="Listeners\UniversalListener.cs" />
     <Compile Include="Callers\CallerProxy.cs" />
     <Compile Include="Autofac\CommunicationModule.cs" />
@@ -74,12 +82,6 @@
     <Compile Include="Consumers\IConsumer.cs" />
     <Compile Include="Publishers\Publisher.cs" />
     <Compile Include="Publishers\IPublisher.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Library\Library.csproj">
-      <Project>{6225A2E3-6131-40EA-B69C-9D4F22DD9033}</Project>
-      <Name>Library</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

@@ -25,17 +25,19 @@ namespace RabbitMQDemo.ExampleCallee
 		public void Start()
 		{
 			_listener.StartListen(this);
-			_logger.Info("ExampleCallee #" + _identifier.Id + " started");
+			_logger.Info($"ExampleCallee #{_identifier.Id} started");
 		}
 
 		public void DisplayMessage(string message)
 		{
-			_logger.Info("Received message: " + message);
+			_logger.Info($"Received message: {message}");
 		}
 
 		public int Multiply(int x, int y)
 		{
-			return x * y;
+			int result = x * y;
+			_logger.Info($"{x} x {y} = {result}");
+			return result;
 		}
 
 		public void Dispose()

@@ -45,7 +45,7 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 			{
 				var queueArguments = new Dictionary<string, object>
 				{
-					{ QueueUtils.PriorityArg, 10 }
+					{ "x-max-priority", 10 }
 				};
 
 				_channel.QueueDeclare(_consumeQueueName, true, false, false, queueArguments);
