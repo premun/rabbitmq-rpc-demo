@@ -17,7 +17,7 @@ namespace RabbitMQDemo.Communication.Autofac
 	{
 		private readonly string _applicationQueueName;
 
-		public CommunicationModule(string applicationQueueName)
+		public CommunicationModule(string applicationQueueName = "RabbitMQDemoQueue")
 		{
 			_applicationQueueName = applicationQueueName;
 		}

@@ -8,14 +8,14 @@ namespace RabbitMQDemo.ExampleConsumer
 {
 	public class Program
 	{
-		private static IContainer InitAutofacContainer(string name)
+		private static IContainer InitAutofacContainer()
 		{
 			var builder = new ContainerBuilder();
 
-			var id = new ExampleConsumerIdentifier(name);
+			var id = new ExampleConsumerIdentifier();
 
-			builder.RegisterModule(new LibraryModule(id.RpcName));
-			builder.RegisterModule(new CommunicationModule(id.RpcName));
+			builder.RegisterModule(new LibraryModule(id));
+			builder.RegisterModule(new CommunicationModule());
 			builder.RegisterType<ExampleConsumer>();
 			builder.Register(c => id).As<Identifier>();
 
@@ -24,12 +24,14 @@ namespace RabbitMQDemo.ExampleConsumer
 
 		public static void Main(string[] args)
 		{
-			IContainer container = InitAutofacContainer(args[0]);
+			IContainer container = InitAutofacContainer();
 
 			try
 			{
-				var consumer = container.Resolve<ExampleConsumer>();
-				consumer.Start();
+				using (var consumer = container.Resolve<ExampleConsumer>())
+				{
+					consumer.Start();
+				}
 			}
 			catch (Exception ex)
 			{

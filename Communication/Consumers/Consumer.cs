@@ -31,7 +31,7 @@ namespace RabbitMQDemo.Communication.Consumers
 			_communicationConsumer.StartConsume();
 		}
 
-		public bool Dequeue(int timeout, out TPacket packet)
+		public bool Dequeue(out TPacket packet, int timeout = -1)
 		{
 			if (_communicationConsumer == null)
 			{

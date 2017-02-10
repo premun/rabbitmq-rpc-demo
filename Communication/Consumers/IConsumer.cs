@@ -34,10 +34,10 @@ namespace RabbitMQDemo.Communication.Consumers
 		/// <summary>
 		/// Dequeues packet from queue. Blocks for time in timeout parameter.
 		/// </summary>
-		/// <param name="timeout">Operation timeout in millisecond.</param>
 		/// <param name="packet">Dequeued packet</param>
+		/// <param name="timeout">Operation timeout in millisecond.</param>
 		/// <returns>Returns true if the packet was dequeued otherwise the operation timeouts.</returns>
-		bool Dequeue(int timeout, out TPacket packet);
+		bool Dequeue(out TPacket packet, int timeout = -1);
 
 		/// <summary>
 		/// Ack the given packet.

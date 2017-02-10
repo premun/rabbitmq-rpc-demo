@@ -77,7 +77,6 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 				packet = new WorkCommunicationPacket
 				{
 					Body = ea.Body,
-					Priority = ea.BasicProperties.Priority,
 					Tag = ea.DeliveryTag,
 					Headers = ea.BasicProperties.Headers
 				};

@@ -14,7 +14,7 @@ namespace RabbitMQDemo.ExampleCallee
 
 			var id = new ExampleCalleeIdentifier(name);
 
-			builder.RegisterModule(new LibraryModule(id.RpcName));
+			builder.RegisterModule(new LibraryModule(id));
 			builder.RegisterModule(new CommunicationModule(id.RpcName));
 			builder.Register(c => id).As<Identifier>();
 			builder.RegisterType<ExampleCallee>();

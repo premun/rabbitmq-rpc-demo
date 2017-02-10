@@ -7,22 +7,22 @@ namespace RabbitMQDemo.Library.Autofac
 	/// </summary>
 	public class LibraryModule : Module
 	{
-		private readonly string _logName;
+		private readonly Identifier _identifier;
 
-		public LibraryModule(string logName)
+		public LibraryModule(Identifier identifier)
 		{
-			_logName = logName;
+			_identifier = identifier;
 		}
 
 		protected override void Load(ContainerBuilder builder)
 		{
-			if (string.IsNullOrEmpty(_logName))
+			if (string.IsNullOrEmpty(_identifier?.LogName))
 			{
 				builder.RegisterType<ZeroLogger>().As<ILogger>().SingleInstance();
 			}
 			else
 			{
-				builder.Register(c => new Logger(_logName)).As<ILogger>().SingleInstance();
+				builder.Register(c => new Logger(_identifier.LogName)).As<ILogger>().SingleInstance();
 			}
 		}
 	}

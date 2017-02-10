@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace RabbitMQDemo.Communication.Publishers
 {
@@ -11,26 +10,15 @@ namespace RabbitMQDemo.Communication.Publishers
 		where TPacket : class
 	{
 		/// <summary>
-		/// Publish jobs with priority 0 (lowest).
+		/// Publish message.
 		/// </summary>
-		/// <param name="jobs">Jobs to publish</param>
-		void Publish(IEnumerable<TPacket> jobs);
+		/// <param name="message">Message to publish</param>
+		void Publish(TPacket message);
 
 		/// <summary>
-		/// Publish jobs with priority given by the prioritySelector to each job.
+		/// Publish messages.
 		/// </summary>
-		/// <param name="jobs">Jobs to publish</param>
-		/// <param name="prioritySelector">
-		/// Selector get jobs and returns the job priority. 
-		/// Job priority must be from 0(lowest)-9(highest).  
-		/// </param>
-		void Publish(IEnumerable<TPacket> jobs, Func<TPacket, byte> prioritySelector);
-
-		/// <summary>
-		/// Publish jobs with priority 0 (lowest) and set them given headers
-		/// </summary>
-		/// <param name="jobs">Jobs to publish</param>
-		/// <param name="headers">Headers for the publishing jobs</param>
-		void Publish(IEnumerable<TPacket> jobs, IDictionary<string, object> headers);
+		/// <param name="messages">Messages to publish</param>
+		void Publish(IEnumerable<TPacket> messages);
 	}
 }

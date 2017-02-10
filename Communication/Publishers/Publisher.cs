@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using RabbitMQDemo.Communication.CommunicationService;
 using RabbitMQDemo.Library;
@@ -7,7 +6,7 @@ using RabbitMQDemo.Library;
 namespace RabbitMQDemo.Communication.Publishers
 {
 	/// <summary>
-	/// Publish packets of TPacket on the given queue.
+	/// Publish messages of TPacket on the given queue.
 	/// </summary>
 	/// <typeparam name="TPacket">Type of publishing packet</typeparam>
 	public class Publisher<TPacket> : IPublisher<TPacket>
@@ -22,40 +21,17 @@ namespace RabbitMQDemo.Communication.Publishers
 			_targetQueue = targetQueue;
 		}
 
-		public void Publish(IEnumerable<TPacket> packets)
+		public void Publish(TPacket message)
 		{
-			var communicationPackets = packets
-				.Select(job => new WorkCommunicationPacket
-				{
-					Body = Serializer.Serialize(job),
-					Priority = 0
-				})
-				.ToList();
-
-			_communicationService.Publish(_targetQueue, communicationPackets);
+			Publish(new[] { message });
 		}
 
-		public void Publish(IEnumerable<TPacket> packets, Func<TPacket, byte> prioritySelector)
+		public void Publish(IEnumerable<TPacket> messages)
 		{
-			var communicationPackets = packets
-				.Select(job => new WorkCommunicationPacket
+			var communicationPackets = messages
+				.Select(message => new WorkCommunicationPacket
 				{
-					Body = Serializer.Serialize(job),
-					Priority = prioritySelector(job)
-				})
-				.ToList();
-
-			_communicationService.Publish(_targetQueue, communicationPackets);
-		}
-
-		public void Publish(IEnumerable<TPacket> packets, IDictionary<string, object> headers)
-		{
-			var communicationPackets = packets
-				.Select(job => new WorkCommunicationPacket
-				{
-					Body = Serializer.Serialize(job),
-					Priority = 0,
-					Headers = headers
+					Body = Serializer.Serialize(message)
 				})
 				.ToList();
 

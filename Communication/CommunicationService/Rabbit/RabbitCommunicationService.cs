@@ -82,7 +82,6 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 				{
 					IBasicProperties properties = channel.CreateBasicProperties();
 					properties.DeliveryMode = 2;
-					properties.Priority = packet.Priority;
 					properties.Headers = packet.Headers;
 					channel.BasicPublish(string.Empty, targetQueue, properties, packet.Body);
 				}
