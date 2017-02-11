@@ -40,7 +40,7 @@ namespace RabbitMQDemo.Communication.Consumers
 			}
 
 			PublishConsumePacket communicationPacket;
-			bool result = _communicationConsumer.Dequeue(timeout, out communicationPacket);
+			bool result = _communicationConsumer.Dequeue(out communicationPacket, timeout);
 			if (result)
 			{
 				packet = Serializer.Deserialize<TPacket>(communicationPacket.Body);

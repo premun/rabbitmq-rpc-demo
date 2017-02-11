@@ -60,9 +60,7 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 			_channel.BasicConsume(ConsumeQueueName, false, _consumer);
 		}
 
-
-
-		public bool Dequeue(int timeout, out PublishConsumePacket packet)
+		public bool Dequeue(out PublishConsumePacket packet, int timeout)
 		{
 			if (_consumer == null)
 			{
