@@ -14,7 +14,7 @@ namespace RabbitMQDemo.Library
 
 		public static NLog.Logger GetLogger(string logName)
 		{
-			var cfg = new XmlLoggingConfiguration(Config.Get["ProjectPath"] + Config.Get["NLog.config"]);
+			var cfg = new XmlLoggingConfiguration(Config.Get["NLog.config"]);
 
 			// Redefine targets according to ForeCastle.properties LogPath variable
 			var baseTarget = (FileTarget)cfg.FindTargetByName("baselog");

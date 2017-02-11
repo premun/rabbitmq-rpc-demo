@@ -24,7 +24,7 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 		{
 			_logger = logger;
 			_processQueueName = processQueueName;
-			_connectionTimeout = int.Parse(Config.Get["RPC.timeout"]);
+			_connectionTimeout = int.Parse(Config.Get["Rabbit.RPC.timeout"]);
 			InitRabbit();
 		}
 
