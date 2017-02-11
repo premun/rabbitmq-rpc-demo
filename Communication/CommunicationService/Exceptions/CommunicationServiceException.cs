@@ -1,6 +1,7 @@
 ﻿using System;
 
-namespace RabbitMQDemo.Communication.CommunicationService
+namespace RabbitMQDemo.Communication.CommunicationService.Exceptions
+
 {
 	/// <summary>
 	/// Exception is thrown when something's wrong in communication library. 

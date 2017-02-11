@@ -7,7 +7,7 @@ namespace RabbitMQDemo.Communication.CommunicationService
 	/// Packet for publish/consume communication.
 	/// </summary>
 	[Serializable]
-	public class WorkCommunicationPacket
+	public class PublishConsumePacket
 	{
 		public byte[] Body { get; set; }
 

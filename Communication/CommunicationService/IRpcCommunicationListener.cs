@@ -25,7 +25,7 @@ namespace RabbitMQDemo.Communication.CommunicationService
 		/// Function provides the response logic.
 		/// Function has two arguments sender queue name and received packet and returns the reply packet.
 		/// </summary>
-		Func<string, RpcCommunicationPacket, RpcCommunicationPacket> ListeningFunction { get; }
+		Func<string, RpcPacket, RpcPacket> ListeningFunction { get; }
 
 		/// <summary>
 		/// Return listeners`s thread which listener use for listening.

@@ -58,15 +58,14 @@
   <ItemGroup>
     <Compile Include="CommunicationService\MethodCallContext.cs" />
     <Compile Include="Listeners\IListener.cs" />
-    <Compile Include="CommunicationService\CommunicationListenerCrashedException.cs" />
-    <Compile Include="CommunicationService\CommunicationServiceException.cs" />
+    <Compile Include="CommunicationService\Exceptions\CommunicationListenerCrashedException.cs" />
+    <Compile Include="CommunicationService\Exceptions\CommunicationServiceException.cs" />
     <Compile Include="CommunicationService\ICommunicationService.cs" />
     <Compile Include="CommunicationService\IRpcCommunicationListener.cs" />
-    <Compile Include="CommunicationService\RpcCommunicationPacket.cs" />
+    <Compile Include="CommunicationService\RpcPacket.cs" />
     <Compile Include="CommunicationService\Rabbit\RabbitCommunicationService.cs" />
     <Compile Include="CommunicationService\Rabbit\RabbitRpcCommunicationListener.cs" />
     <Compile Include="CommunicationService\Rabbit\RabbitRpcPacket.cs" />
-    <Compile Include="Utils\MethodCallLogger.cs" />
     <Compile Include="Listeners\UniversalListener.cs" />
     <Compile Include="Callers\CallerProxy.cs" />
     <Compile Include="Autofac\CommunicationModule.cs" />
@@ -75,7 +74,7 @@
     <Compile Include="Listeners\Factory\ListenerFactory.cs" />
     <Compile Include="Listeners\Factory\IListenerFactory.cs" />
     <Compile Include="Definitions\Contracts\CodeResult.cs" />
-    <Compile Include="CommunicationService\WorkCommunicationPacket.cs" />
+    <Compile Include="CommunicationService\PublishConsumePacket.cs" />
     <Compile Include="CommunicationService\ICommunicationConsumer.cs" />
     <Compile Include="CommunicationService\Rabbit\RabbitCommunicationConsumer.cs" />
     <Compile Include="Consumers\Consumer.cs" />

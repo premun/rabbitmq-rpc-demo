@@ -20,10 +20,13 @@ namespace RabbitMQDemo.Library
 			var baseTarget = (FileTarget)cfg.FindTargetByName("baselog");
 			var errorTarget = (FileTarget)cfg.FindTargetByName("errlog");
 
-			baseTarget.FileName = string.Format("{0}/{1}.log", Config.Get["LogPath"], logName);
-			baseTarget.ArchiveFileName = string.Format("{0}/{1}.{{###}}.log", Config.Get["ArchiveLogPath"], logName);
-			errorTarget.FileName = string.Format("{0}/{1}.err.log", Config.Get["LogPath"], logName);
-			errorTarget.ArchiveFileName = string.Format("{0}/{1}.{{###}}.log", Config.Get["ArchiveLogPath"], logName);
+			var logPath = Config.Get["LogPath"];
+			var archivePath = Config.Get["ArchiveLogPath"];
+
+			baseTarget.FileName = $"{logPath}/{logName}.log";
+			baseTarget.ArchiveFileName = $"{archivePath}/{logName}.{{###}}.log";
+			errorTarget.FileName = $"{logPath}/{logName}.err.log";
+			errorTarget.ArchiveFileName = $"{archivePath}/{logName}.{{###}}.log";
 
 			if (Config.Get["LogInConsole"] == "true")
 			{
@@ -41,6 +44,7 @@ namespace RabbitMQDemo.Library
 
 			LogManager.Configuration = cfg;
 			LogManager.ThrowExceptions = true;
+
 			return LogManager.GetLogger(logName);
 		}
 
@@ -50,7 +54,7 @@ namespace RabbitMQDemo.Library
 			Name = logName;
 		}
 
-		public string Name { get; private set; }
+		public string Name { get; }
 
 		public void Debug(string message)
 		{

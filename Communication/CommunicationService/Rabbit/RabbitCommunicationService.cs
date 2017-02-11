@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
-using RabbitMQDemo.Communication.Utils;
+using RabbitMQDemo.Communication.CommunicationService.Exceptions;
 using RabbitMQDemo.Library;
 
 namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
@@ -60,7 +60,7 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 
 		#region Publish/Consumer part
 
-		public void Publish(string targetQueue, IEnumerable<WorkCommunicationPacket> packets)
+		public void Publish(string targetQueue, IEnumerable<PublishConsumePacket> packets)
 		{
 			using (IModel channel = _rabbitConnection.CreateModel())
 			{
@@ -78,7 +78,7 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 					throw new CommunicationException("Already existent queue is not compatible with declared queue. See inner exception for details.", ex);
 				}
 
-				foreach (WorkCommunicationPacket packet in packets)
+				foreach (PublishConsumePacket packet in packets)
 				{
 					IBasicProperties properties = channel.CreateBasicProperties();
 					properties.DeliveryMode = 2;
@@ -97,7 +97,7 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 
 		#region RPC part
 
-		public bool ExistsListenerOnQueue(string queueName)
+		public bool QueueListenerExists(string queueName)
 		{
 			try
 			{
@@ -152,12 +152,12 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 			}
 		}
 
-		public RpcCommunicationPacket CallRpc(string targetQueue, RpcCommunicationPacket sendPacket, RpcCallType type = RpcCallType.ExpectReply)
+		public RpcPacket CallRpc(string targetQueue, RpcPacket sendPacket, RpcCallType type = RpcCallType.ExpectReply)
 		{
 			bool expectReply = type == RpcCallType.ExpectReply;
 			try
 			{
-				if (!ExistsListenerOnQueue(targetQueue))
+				if (!QueueListenerExists(targetQueue))
 				{
 					throw new CommunicationException($"Target queue `{targetQueue}` does not have any listener.");
 				}
@@ -221,7 +221,7 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 			}
 		}
 
-		public IRpcCommunicationListener CreateRpcCommunicationListener(Func<string, RpcCommunicationPacket, RpcCommunicationPacket> listeningFunction)
+		public IRpcCommunicationListener CreateRpcCommunicationListener(Func<string, RpcPacket, RpcPacket> listeningFunction)
 		{
 			RabbitRpcCommunicationListener rpcCommunicationListener = new RabbitRpcCommunicationListener(_logger, _rabbitConnection, _processQueueName, listeningFunction);
 			return rpcCommunicationListener;

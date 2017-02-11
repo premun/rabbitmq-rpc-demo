@@ -58,7 +58,7 @@ namespace RabbitMQDemo.Communication.Listeners
 			_listener = communicationService.CreateRpcCommunicationListener(ListeningFunc);
 		}
 
-		private RpcCommunicationPacket ListeningFunc(string from, RpcCommunicationPacket packet)
+		private RpcPacket ListeningFunc(string from, RpcPacket packet)
 		{
 			var sendMethodContext = Serializer.Deserialize<MethodCallContext>(packet.Body);
 
@@ -82,7 +82,7 @@ namespace RabbitMQDemo.Communication.Listeners
 				replyMethodContext.Result = result;
 			}
 
-			var replyPacket = new RpcCommunicationPacket
+			var replyPacket = new RpcPacket
 			{
 				Body = Serializer.Serialize(replyMethodContext)
 			};

@@ -9,8 +9,7 @@ namespace RabbitMQDemo.Communication.Publishers
 	/// Publish messages of TPacket on the given queue.
 	/// </summary>
 	/// <typeparam name="TPacket">Type of publishing packet</typeparam>
-	public class Publisher<TPacket> : IPublisher<TPacket>
-		where TPacket : class
+	public class Publisher<TPacket> : IPublisher<TPacket> where TPacket : class
 	{
 		private readonly ICommunicationService _communicationService;
 		private readonly string _targetQueue;
@@ -29,7 +28,7 @@ namespace RabbitMQDemo.Communication.Publishers
 		public void Publish(IEnumerable<TPacket> messages)
 		{
 			var communicationPackets = messages
-				.Select(message => new WorkCommunicationPacket
+				.Select(message => new PublishConsumePacket
 				{
 					Body = Serializer.Serialize(message)
 				})

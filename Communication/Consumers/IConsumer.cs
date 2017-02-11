@@ -7,9 +7,7 @@ namespace RabbitMQDemo.Communication.Consumers
 	/// Consume packets of TPacket on the given queue.
 	/// </summary>
 	/// <typeparam name="TPacket">Type of consuming packet</typeparam>
-	public interface IConsumer<TPacket> : IDisposable
-		where TPacket : class
-	{
+	public interface IConsumer<TPacket> : IDisposable where TPacket : class {
 		/// <summary>
 		/// Consume queue name.
 		/// </summary>

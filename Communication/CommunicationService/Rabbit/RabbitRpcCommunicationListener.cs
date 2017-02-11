@@ -4,6 +4,7 @@ using System.Threading;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
+using RabbitMQDemo.Communication.CommunicationService.Exceptions;
 using RabbitMQDemo.Library;
 
 namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
@@ -24,8 +25,6 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 
 		private readonly string _listeningQueueName;
 
-		private readonly Func<string, RpcCommunicationPacket, RpcCommunicationPacket> _listeningFunction;
-
 		private IModel _privateListeningChannel;
 
 		private IModel ListeningChannel
@@ -45,19 +44,11 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 			}
 		}
 
-		private Thread _listeningThread;
-
 		private bool _disposed;
 
-		public string ListeningQueueName
-		{ 
-			get { return _listeningQueueName; } 
-		}
+		public string ListeningQueueName => _listeningQueueName;
 
-		public Func<string, RpcCommunicationPacket, RpcCommunicationPacket> ListeningFunction
-		{
-			get { return _listeningFunction; }
-		}
+		public Func<string, RpcPacket, RpcPacket> ListeningFunction { get; }
 
 		public event EventHandler StartListening;
 
@@ -65,53 +56,41 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 
 		public event EventHandler StopListening;
 
-		public Thread ListeningThread
-		{
-			get { return _listeningThread; }
-		}
+		public Thread ListeningThread { get; private set; }
 
 		public RabbitRpcCommunicationListener(
 			ILogger logger, 
 			IConnection rabbitConnection,
 			string listeningQueueName,
-			Func<string, RpcCommunicationPacket, RpcCommunicationPacket> listeningFunction)
+			Func<string, RpcPacket, RpcPacket> listeningFunction)
 		{
 			_logger = logger;
 			_rabbitConnection = rabbitConnection;
 			_listeningQueueName = listeningQueueName;
-			_listeningFunction = listeningFunction;
+			ListeningFunction = listeningFunction;
 		}
 
 		private void OnListeningThreadFailed(ListeningThreadFailedEventArgs e)
 		{
-			if (ListeningThreadFailed != null)
-			{
-				ListeningThreadFailed(this, e);
-			}
+			ListeningThreadFailed?.Invoke(this, e);
 		}
 
 		private void OnStartListening()
 		{
-			if (StartListening != null)
-			{
-				StartListening(this, EventArgs.Empty);
-			}
+			StartListening?.Invoke(this, EventArgs.Empty);
 		}
 
 		private void OnStopListening()
 		{
-			if (StopListening != null)
-			{
-				StopListening(this, EventArgs.Empty);
-			}
+			StopListening?.Invoke(this, EventArgs.Empty);
 		}
 
 
 		public void StartListen()
 		{
 			_disposed = false;
-			_listeningThread = new Thread(Run);
-			_listeningThread.Start();
+			ListeningThread = new Thread(Run);
+			ListeningThread.Start();
 		}
 
 		private void InitRabbitChannel()
@@ -120,16 +99,13 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 
 			try
 			{
-				// Declare queue
-				// Will throw an OperationInterruptedException if queue already exists
+				// Declaring queue will throw an OperationInterruptedException if queue already exists
 				ListeningChannel.QueueDeclare(ListeningQueueName, false, true, false, null);
 			}
 			catch (OperationInterruptedException ex)
 			{
-				string exceptionMessage = string.Format(
-					                          "Listener could not start listening on queue `{0}`. See inner exception for details.", 
-					                          ListeningQueueName);
-				throw new CommunicationException(exceptionMessage, ex);
+				throw new CommunicationException(
+					$"Listener could not start listening on queue `{ListeningQueueName}`. See inner exception for details.", ex);
 			}
 
 			// RabbitMQ properties
@@ -166,8 +142,8 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 					}
 						
 					// Response rabbit parameters + correlation Identifier
-					var recievedProperties = messageReceived.BasicProperties;
-					var replyProperties = ListeningChannel.CreateBasicProperties();
+					IBasicProperties recievedProperties = messageReceived.BasicProperties;
+					IBasicProperties replyProperties = ListeningChannel.CreateBasicProperties();
 					replyProperties.CorrelationId = recievedProperties.CorrelationId;
 
 					RabbitRpcPacket recievedRpcPacket;
@@ -179,7 +155,7 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 					catch (Exception ex)
 					{
 						// If comes bad packet log it and continue in listening.
-						_logger.Error(string.Format("Could not dematerialized RabbitRpcPacket. Exception stack trace: {0}", ex));
+						_logger.Error($"Could not dematerialized RabbitRpcPacket. Exception stack trace: {ex}");
 						continue;
 					}
 
@@ -196,7 +172,7 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 					catch (Exception ex)
 					{
 						// If listening function crashed log it and send back exception details.
-						_logger.Error(string.Format("Couldn't process RPC call (callee side): {0}", ex), ex);
+						_logger.Error($"Couldn't process RPC call (callee side): {ex}", ex);
 
 						// Create error response
 						replyRpcPacket.Error = true; 
@@ -218,7 +194,7 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 			}
 			catch (StopListenException)
 			{
-				_logger.Info(string.Format("Listening on queue `{0}` stopped.", ListeningQueueName));
+				_logger.Info($"Listening on queue `{ListeningQueueName}` stopped.");
 				OnStopListening();
 			}
 			catch (Exception ex)
@@ -237,14 +213,17 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 
 		public void Dispose()
 		{
-			if (!_disposed)
+			lock (this)
 			{
-				_disposed = true;
-				if (_privateListeningChannel != null)
+				if (_disposed)
 				{
-					_privateListeningChannel.Dispose();
-					_privateListeningChannel = null;
+					return;
 				}
+
+				_disposed = true;
+				_privateListeningChannel?.Dispose();
+				_privateListeningChannel = null;
+
 				GC.SuppressFinalize(this);
 			}
 		}

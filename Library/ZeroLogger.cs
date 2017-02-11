@@ -7,10 +7,7 @@ namespace RabbitMQDemo.Library
 	/// </summary>
 	public class ZeroLogger : ILogger
 	{
-		public string Name
-		{
-			get { return "ZeroLogger"; }
-		}
+		public string Name => "ZeroLogger";
 
 		public void Debug(string message)
 		{

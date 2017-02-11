@@ -28,13 +28,18 @@ namespace RabbitMQDemo.ExampleConsumer
 			{
 				ExampleMessage message;
 
-				_consumer.Dequeue(out message);
+				if (!_consumer.Dequeue(out message))
+				{
+					break;
+				}
 
 				_logger.Info($"Received message: {message}");
 
 				_consumer.Ack(message);
 				Thread.Sleep(1000);
 			}
+
+			_logger.Info("ExampleConsumer ended");
 		}
 
 		public void Dispose()

@@ -1,4 +1,5 @@
 ﻿using System;
+using RabbitMQDemo.Communication.CommunicationService.Exceptions;
 using RabbitMQDemo.Library;
 
 namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
@@ -29,6 +30,6 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 
 		public string ExceptionStackTrace { get; set; } 
 
-		public RpcCommunicationPacket Body { get; set; }
+		public RpcPacket Body { get; set; }
 	}
 }

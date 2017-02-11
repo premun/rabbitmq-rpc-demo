@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using RabbitMQDemo.Communication.CommunicationService;
+using RabbitMQDemo.Communication.CommunicationService.Exceptions;
 using RabbitMQDemo.Library;
 
 namespace RabbitMQDemo.Communication.Consumers
@@ -12,7 +13,7 @@ namespace RabbitMQDemo.Communication.Consumers
 	{
 		private ICommunicationConsumer _communicationConsumer;
 		private readonly ICommunicationService _communicationService;
-		private readonly Dictionary<TPacket, WorkCommunicationPacket> _unAckJobs = new Dictionary<TPacket, WorkCommunicationPacket>();
+		private readonly Dictionary<TPacket, PublishConsumePacket> _unAckJobs = new Dictionary<TPacket, PublishConsumePacket>();
 
 		public Consumer(ICommunicationService communicationService, string consumeQueueName)
 		{
@@ -38,7 +39,7 @@ namespace RabbitMQDemo.Communication.Consumers
 				throw new CommunicationException("Could not process function because the consumer was not initialized or disposed.");
 			}
 
-			WorkCommunicationPacket communicationPacket;
+			PublishConsumePacket communicationPacket;
 			bool result = _communicationConsumer.Dequeue(timeout, out communicationPacket);
 			if (result)
 			{

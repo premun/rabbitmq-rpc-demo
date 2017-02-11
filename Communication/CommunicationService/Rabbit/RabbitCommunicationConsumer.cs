@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
-using RabbitMQDemo.Communication.Utils;
+using RabbitMQDemo.Communication.CommunicationService.Exceptions;
 
 namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 {
@@ -15,15 +15,13 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 	{
 		private readonly IConnection _rabbitConnection;
 
-		private readonly string _consumeQueueName;
-
 		private IModel _channel;
 
 		private QueueingBasicConsumer _consumer;
 
 		private bool _disposed;
 
-		public string ConsumeQueueName => _consumeQueueName;
+		public string ConsumeQueueName { get; }
 
 		public ushort Prefetch { get; set; }
 
@@ -32,7 +30,7 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 			string consumeQueueName)
 		{
 			_rabbitConnection = rabbitConnection;
-			_consumeQueueName = consumeQueueName;
+			ConsumeQueueName = consumeQueueName;
 			Prefetch = 1;
 		}
 
@@ -48,23 +46,23 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 					{ "x-max-priority", 10 }
 				};
 
-				_channel.QueueDeclare(_consumeQueueName, true, false, false, queueArguments);
+				_channel.QueueDeclare(ConsumeQueueName, true, false, false, queueArguments);
 				_channel.BasicQos(0, Prefetch, false);
 			}
 			catch (OperationInterruptedException ex)
 			{
 				string exceptionMessage =
-					$"Could not start to consume on queue `{_consumeQueueName}`. See inner exception for details.";
+					$"Could not start to consume on queue `{ConsumeQueueName}`. See inner exception for details.";
 				throw new CommunicationException(exceptionMessage, ex);
 			}
 
 			_consumer = new QueueingBasicConsumer(_channel);
-			_channel.BasicConsume(_consumeQueueName, false, _consumer);
+			_channel.BasicConsume(ConsumeQueueName, false, _consumer);
 		}
 
 
 
-		public bool Dequeue(int timeout, out WorkCommunicationPacket packet)
+		public bool Dequeue(int timeout, out PublishConsumePacket packet)
 		{
 			if (_consumer == null)
 			{
@@ -74,7 +72,7 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 			BasicDeliverEventArgs ea;
 			if (_consumer.Queue.Dequeue(timeout, out ea))
 			{
-				packet = new WorkCommunicationPacket
+				packet = new PublishConsumePacket
 				{
 					Body = ea.Body,
 					Tag = ea.DeliveryTag,
@@ -88,7 +86,7 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 			return false;
 		}
 
-		public void Ack(WorkCommunicationPacket packet)
+		public void Ack(PublishConsumePacket packet)
 		{
 			if (_channel == null)
 			{
@@ -98,7 +96,7 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 			_channel.BasicAck(packet.Tag, false);
 		}
 
-		public void Nack(WorkCommunicationPacket packet)
+		public void Nack(PublishConsumePacket packet)
 		{
 			if (_channel == null)
 			{
@@ -124,11 +122,8 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 
 				_disposed = true;
 
-				if (_channel != null)
-				{
-					_channel.Dispose();
-					_channel = null;
-				}
+				_channel?.Dispose();
+				_channel = null;
 
 				// Always set null
 				_consumer = null;

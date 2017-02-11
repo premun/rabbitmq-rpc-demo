@@ -34,18 +34,18 @@ namespace RabbitMQDemo.Communication.CommunicationService
 		/// <param name="timeout">Operation timeout in millisecond.</param>
 		/// <param name="packet">Dequeued packet</param>
 		/// <returns>Returns true if the packet was dequeued otherwise the operation timeouts.</returns>
-		bool Dequeue(int timeout, out WorkCommunicationPacket packet);
+		bool Dequeue(int timeout, out PublishConsumePacket packet);
 
 		/// <summary>
 		/// Accepts the given packet.
 		/// </summary>
 		/// <param name="packet">Packet to accepts.</param>
-		void Ack(WorkCommunicationPacket packet);
+		void Ack(PublishConsumePacket packet);
 
 		/// <summary>
 		/// Non-accepts the given packet.
 		/// </summary>
 		/// <param name="packet">Packet to non-accepts.</param>
-		void Nack(WorkCommunicationPacket packet);
+		void Nack(PublishConsumePacket packet);
 	}
 }

@@ -49,14 +49,13 @@ namespace RabbitMQDemo.Communication.Callers
 				parameters[i] = methodCall.GetInArg(i);
 			}
 
-
 			var methodCallContext = new MethodCallContext
 			{
 				MethodName = method.Name,
 				Parameters = parameters
 			};
 
-			var packet = new RpcCommunicationPacket
+			var packet = new RpcPacket
 			{
 				Body = Serializer.Serialize(methodCallContext)
 			};
@@ -68,7 +67,7 @@ namespace RabbitMQDemo.Communication.Callers
 			}
 			else
 			{
-				RpcCommunicationPacket replyPacket = _communicationService.CallRpc(_targetQueueName, packet);
+				RpcPacket replyPacket = _communicationService.CallRpc(_targetQueueName, packet);
 				var replyMethodContext = Serializer.Deserialize<MethodCallContext>(replyPacket.Body);
 				methodResult = replyMethodContext.Result;
 			}

@@ -1,6 +1,7 @@
 ﻿using System;
 using Autofac;
 using RabbitMQDemo.Communication.Autofac;
+using RabbitMQDemo.CommunicationInterface;
 using RabbitMQDemo.Library;
 using RabbitMQDemo.Library.Autofac;
 
@@ -20,12 +21,11 @@ namespace RabbitMQDemo.ExamplePublisher
 
 		private static IContainer InitContainer()
 		{
-			var builder = new ContainerBuilder();
-
 			var id = new ExamplePublisherIdentifier();
 
+			var builder = new ContainerBuilder();
 			builder.RegisterModule(new LibraryModule(id));
-			builder.RegisterModule(new CommunicationModule());
+			builder.RegisterModule(new CommunicationModule(nameof(ExampleMessage) + "_queue"));
 			builder.Register(c => id).As<Identifier>();
 			builder.RegisterType<ExamplePublisher>();
 

@@ -6,8 +6,7 @@ namespace RabbitMQDemo.Communication.Publishers
 	/// Publish packets of TPacket on the given queue.
 	/// </summary>
 	/// <typeparam name="TPacket">Type of publishing packet</typeparam>
-	public interface IPublisher<TPacket>
-		where TPacket : class
+	public interface IPublisher<in TPacket> where TPacket : class
 	{
 		/// <summary>
 		/// Publish message.

@@ -22,7 +22,7 @@ namespace RabbitMQDemo.Communication.CommunicationService
 		/// </summary>
 		/// <param name="targetQueue">Target queue</param>
 		/// <param name="packets">Packets to send</param>
-		void Publish(string targetQueue, IEnumerable<WorkCommunicationPacket> packets);
+		void Publish(string targetQueue, IEnumerable<PublishConsumePacket> packets);
 
 		/// <summary>
 		/// Creates a consumer which will consume on the consumeQueue.
@@ -45,7 +45,7 @@ namespace RabbitMQDemo.Communication.CommunicationService
 		/// <param name="type">Type of RPC communication - expect or not reply</param>
 		/// <returns>Received packet from listener in case of expecting result type. 
 		/// If the reply is not expected then returns null.</returns>
-		RpcCommunicationPacket CallRpc(string targetQueue, RpcCommunicationPacket sendPacket, RpcCallType type = RpcCallType.ExpectReply);
+		RpcPacket CallRpc(string targetQueue, RpcPacket sendPacket, RpcCallType type = RpcCallType.ExpectReply);
 
 
 		/// <summary>
@@ -54,6 +54,6 @@ namespace RabbitMQDemo.Communication.CommunicationService
 		/// <param name="listeningFunction">Function provides the response logic.
 		///  Function has two arguments sender queue name and received packet and returns the reply packet.</param>
 		/// <returns>The RPC listener</returns>
-		IRpcCommunicationListener CreateRpcCommunicationListener(Func<string, RpcCommunicationPacket, RpcCommunicationPacket> listeningFunction);
+		IRpcCommunicationListener CreateRpcCommunicationListener(Func<string, RpcPacket, RpcPacket> listeningFunction);
 	}
 }
