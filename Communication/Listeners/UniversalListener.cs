@@ -17,12 +17,12 @@ namespace RabbitMQDemo.Communication.Listeners
 		private T _instance;
 
         /// <summary>
-        /// StartListening is raised whenever the listener starts listen.
+        /// ListeningStarted is raised whenever the listener starts listen.
         /// </summary>
-        public event EventHandler StartListening
+        public event EventHandler ListeningStarted
 		{
-			add { _listener.StartListening += value; }
-			remove { _listener.StartListening -= value; }
+			add { _listener.ListeningStarted += value; }
+			remove { _listener.ListeningStarted -= value; }
 		}
 
         /// <summary>
@@ -37,10 +37,10 @@ namespace RabbitMQDemo.Communication.Listeners
         /// <summary>
         /// Occurs when [stop listening].
         /// </summary>
-        public event EventHandler StopListening
+        public event EventHandler ListeningStopped
 		{
-			add { _listener.StopListening += value; }
-			remove { _listener.StopListening -= value; }
+			add { _listener.ListeningStopped += value; }
+			remove { _listener.ListeningStopped -= value; }
 		}
 
         /// <summary>
@@ -90,16 +90,16 @@ namespace RabbitMQDemo.Communication.Listeners
 			return replyPacket; 
 		}
 
-		public void StartListen(T instance)
+		public void StartListening(T instance)
 		{
 			_instance = instance;
-			_listener.StartListen();
+			_listener.StartListening();
 		}
 
         /// <summary>
         /// Stop listen and dispose the resources.
         /// </summary>
-        public void StopListen()
+        public void StopListening()
 		{
 			Dispose();
 		}

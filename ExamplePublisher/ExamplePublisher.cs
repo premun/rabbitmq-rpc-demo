@@ -22,7 +22,6 @@ namespace RabbitMQDemo.ExamplePublisher
 				Console.Write("How many messages should I publish?\n> ");
 				keepGoing = ProcessInput(Console.ReadLine());
 			} while (keepGoing);
-
 		}
 
 		private bool ProcessInput(string input)

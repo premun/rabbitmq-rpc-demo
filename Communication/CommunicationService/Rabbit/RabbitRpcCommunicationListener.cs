@@ -50,11 +50,11 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 
 		public Func<string, RpcPacket, RpcPacket> ListeningFunction { get; }
 
-		public event EventHandler StartListening;
+		public event EventHandler ListeningStarted;
 
 		public event EventHandler<ListeningThreadFailedEventArgs> ListeningThreadFailed;
 
-		public event EventHandler StopListening;
+		public event EventHandler ListeningStopped;
 
 		public Thread ListeningThread { get; private set; }
 
@@ -77,16 +77,16 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 
 		private void OnStartListening()
 		{
-			StartListening?.Invoke(this, EventArgs.Empty);
+			ListeningStarted?.Invoke(this, EventArgs.Empty);
 		}
 
 		private void OnStopListening()
 		{
-			StopListening?.Invoke(this, EventArgs.Empty);
+			ListeningStopped?.Invoke(this, EventArgs.Empty);
 		}
 
 
-		public void StartListen()
+		public void StartListening()
 		{
 			_disposed = false;
 			ListeningThread = new Thread(Run);
@@ -206,7 +206,7 @@ namespace RabbitMQDemo.Communication.CommunicationService.Rabbit
 			}
 		}
 
-		public void StopListen()
+		public void StopListening()
 		{
 			Dispose();
 		}

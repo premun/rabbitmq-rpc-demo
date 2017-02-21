@@ -35,7 +35,13 @@ namespace RabbitMQDemo.Communication.CommunicationService
 		/// <summary>
 		/// StartListening is raised  whenever the listener starts listen. 
 		/// </summary>
-		event EventHandler StartListening;
+		event EventHandler ListeningStarted;
+
+		/// <summary>
+		/// ListeningStopped is raised  whenever the listener stop listening successfully. 
+		/// It is not raised  when the listener thread crashed with exception. 
+		/// </summary>
+		event EventHandler ListeningStopped;
 
 		/// <summary>
 		/// ListeningThreadFailed is raised  whenever the listener thread crashed with exception. 
@@ -43,19 +49,13 @@ namespace RabbitMQDemo.Communication.CommunicationService
 		event EventHandler<ListeningThreadFailedEventArgs> ListeningThreadFailed;
 
 		/// <summary>
-		/// StopListening is raised  whenever the listener stop listening successfully. 
-		/// It is not raised  when the listener thread crashed with exception. 
-		/// </summary>
-		event EventHandler StopListening;
-
-		/// <summary>
 		/// Start listen.
 		/// </summary>
-		void StartListen();
+		void StartListening();
 
 		/// <summary>
 		/// Stop listen and dispose the resources.
 		/// </summary>
-		void StopListen();
+		void StopListening();
 	}
 }

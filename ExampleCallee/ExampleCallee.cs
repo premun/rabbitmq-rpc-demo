@@ -12,10 +12,7 @@ namespace RabbitMQDemo.ExampleCallee
 		private readonly Identifier _identifier;
 		private readonly IListener<IExampleInterface> _listener;
 
-		public ExampleCallee(
-			ILogger logger,
-			IListenerFactory listenerFactory,
-			Identifier identifier)
+		public ExampleCallee(ILogger logger, IListenerFactory listenerFactory, Identifier identifier)
 		{
 			_logger = logger;
 			_identifier = identifier;
@@ -24,7 +21,7 @@ namespace RabbitMQDemo.ExampleCallee
 
 		public void Start()
 		{
-			_listener.StartListen(this);
+			_listener.StartListening(this);
 			_logger.Info($"ExampleCallee #{_identifier.Id} started");
 		}
 
@@ -42,6 +39,7 @@ namespace RabbitMQDemo.ExampleCallee
 
 		public void Dispose()
 		{
+			_listener?.StopListening();
 			_listener?.Dispose();
 		}
 	}

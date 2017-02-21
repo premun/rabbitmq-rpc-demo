@@ -15,12 +15,12 @@ namespace RabbitMQDemo.Communication.Listeners
 		/// Start listen and all calls are calls on the instance.
 		/// </summary>
 		/// <param name="instance">Instance on which will be called all incoming calls.</param>
-		void StartListen(T instance);
+		void StartListening(T instance);
 
 		/// <summary>
 		/// Stop listen and dispose the resources.
 		/// </summary>
-		void StopListen();
+		void StopListening();
 
 		/// <summary>
 		/// Return listeners`s thread which listener use for listening.
@@ -28,9 +28,9 @@ namespace RabbitMQDemo.Communication.Listeners
 		Thread ListeningThread { get; }
 
 		/// <summary>
-		/// StartListening is raised whenever the listener starts listen. 
+		/// ListeningStarted is raised whenever the listener starts listen. 
 		/// </summary>
-		event EventHandler StartListening;
+		event EventHandler ListeningStarted;
 
 		/// <summary>
 		/// ListeningThreadFailed is raised  whenever the listener thread crashed with exception. 

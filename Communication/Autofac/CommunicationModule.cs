@@ -37,8 +37,7 @@ namespace RabbitMQDemo.Communication.Autofac
 				.SingleInstance();
 			
 			builder.Register(c => new Publisher<ExampleMessage>(c.Resolve<ICommunicationService>(), _applicationQueueName))
-				.As<IPublisher<ExampleMessage>>()
-				.SingleInstance();
+				.As<IPublisher<ExampleMessage>>();
 			
 			builder.Register(c => new Consumer<ExampleMessage>(c.Resolve<ICommunicationService>(), _applicationQueueName))
 				.As<IConsumer<ExampleMessage>>();

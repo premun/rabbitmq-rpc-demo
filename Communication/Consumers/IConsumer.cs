@@ -20,12 +20,12 @@ namespace RabbitMQDemo.Communication.Consumers
 		ushort Prefetch { get; set; }
 
 		/// <summary>
-		/// Start consume.
+		/// Starts consuming messages.
 		/// </summary>
 		void StartConsume();
 
 		/// <summary>
-		/// Stop consume and dispose the resources.
+		/// Stops consuming and disposes the resources.
 		/// </summary>
 		void StopConsume();
 

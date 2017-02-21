@@ -70,7 +70,7 @@ namespace RabbitMQDemo.Communication.test
 
 			public void StartListen()
 			{
-				_listener.StartListen(this);
+				_listener.StartListening(this);
 			}
 
 			public void Kill()
@@ -96,7 +96,7 @@ namespace RabbitMQDemo.Communication.test
 				using (var listener = new UniversalListener<ITestCommunicationObject>(communicationService))
 				{
 					listener.ListeningThreadFailed += ListeningThreadFailed;
-					listener.StartListen(implementation);
+					listener.StartListening(implementation);
 					// Give time to start listener
 					Thread.Sleep(100);
 
@@ -126,7 +126,7 @@ namespace RabbitMQDemo.Communication.test
 				using (var listener = new UniversalListener<ITestCommunicationObject>(communicationService))
 				{
 					listener.ListeningThreadFailed += ListeningThreadFailed;
-					listener.StartListen(implementation);
+					listener.StartListening(implementation);
 
 					// Give time to start listener
 					Thread.Sleep(100);
@@ -167,15 +167,15 @@ namespace RabbitMQDemo.Communication.test
 				using (var listener = new UniversalListener<ITestCommunicationObject>(communicationService))
 				{
 					var implementation = new TestCommunicationObject(Argument1Value, Argument2Value);
-					listener.StartListen(implementation);
+					listener.StartListening(implementation);
 					listener.ListeningThreadFailed += ListeningThreadFailed;
 
-					listener.StartListening += (sender, e) =>
+					listener.ListeningStarted += (sender, e) =>
 					{
 						startListeningCalled = true;
 					};
 
-					listener.StopListening += (sender, e) =>
+					listener.ListeningStopped += (sender, e) =>
 					{
 						stopListeningCalled = true;
 					};
@@ -203,12 +203,12 @@ namespace RabbitMQDemo.Communication.test
 				ITestKillObject caller = CallerProxy<ITestKillObject>.Create(communicationService, TestQueueName);
 				var listener = new UniversalListener<ITestKillObject>(communicationService);
 				listener.ListeningThreadFailed += ListeningThreadFailed;
-				listener.StartListening += (sender, e) =>
+				listener.ListeningStarted += (sender, e) =>
 				{
 					startListeningCalled = true;
 				};
 
-				listener.StopListening += (sender, e) =>
+				listener.ListeningStopped += (sender, e) =>
 				{
 					stopListeningCalled = true;
 				};
@@ -236,14 +236,14 @@ namespace RabbitMQDemo.Communication.test
 				using (var listener1 = new UniversalListener<ITestCommunicationObject>(communicationService1))
 				{
 					var implementation = new TestCommunicationObject(Argument1Value, Argument2Value);
-					listener1.StartListen(implementation);
+					listener1.StartListening(implementation);
 					listener1.ListeningThreadFailed += ListeningThreadFailed;
 
 					Thread.Sleep(500);
 					using (var listener2 = new UniversalListener<ITestCommunicationObject>(communicationService2))
 					{
 						listener2.ListeningThreadFailed += ListeningThreadFailed;
-						listener2.StartListen(implementation);
+						listener2.StartListening(implementation);
 
 						listener2.ListeningThread.Join();
 						Assert.Throws<CommunicationException>(RaiseExceptionFromOtherThreads);

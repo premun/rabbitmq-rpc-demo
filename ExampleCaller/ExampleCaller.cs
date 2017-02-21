@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Autofac;
+using RabbitMQDemo.Communication.Callers.Factory;
 using RabbitMQDemo.CommunicationInterface;
 using RabbitMQDemo.ExampleCallee;
+using RabbitMQDemo.Library;
 
 namespace RabbitMQDemo.ExampleCaller
 {
@@ -23,7 +26,7 @@ namespace RabbitMQDemo.ExampleCaller
 			}
 
 			var id = new ExampleCalleeIdentifier(consumerId);
-			_caller = Program.GetCaller<IExampleInterface>(id);
+			_caller = GetCaller<IExampleInterface>(id);
 
 			bool keepGoing;
 			do
@@ -60,6 +63,13 @@ namespace RabbitMQDemo.ExampleCaller
 			}
 
 			return true;
+		}
+		
+		private static T GetCaller<T>(Identifier id)
+		{
+			return Program.Container
+				.Resolve<ICallerFactory>()
+				.CreateCaller<T>(id);
 		}
 	}
 }

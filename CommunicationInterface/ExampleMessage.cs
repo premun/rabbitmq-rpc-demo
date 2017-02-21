@@ -20,7 +20,8 @@ namespace RabbitMQDemo.CommunicationInterface
 
 		public override string ToString()
 		{
-			return $"{MessageGuid}" + $"[{Number}/{BatchSize}]".PadLeft(10);
-        }
+			string id = MessageGuid.ToString().Substring(0, 8);
+			return $"{id}" + $"[{Number}/{BatchSize}]".PadLeft(10);
+		}
 	}
 }

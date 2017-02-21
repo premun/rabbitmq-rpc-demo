@@ -11,9 +11,7 @@ namespace RabbitMQDemo.ExampleConsumer
 		private readonly ILogger _logger;
 		private readonly IConsumer<ExampleMessage> _consumer;
 
-		public ExampleConsumer(
-			ILogger logger,
-			IConsumer<ExampleMessage> consumer)
+		public ExampleConsumer(ILogger logger, IConsumer<ExampleMessage> consumer)
 		{
 			_logger = logger;
 			_consumer = consumer;
@@ -33,13 +31,17 @@ namespace RabbitMQDemo.ExampleConsumer
 					break;
 				}
 
-				_logger.Info($"Received message: {message}");
-
-				_consumer.Ack(message);
-				Thread.Sleep(1000);
+				ProcessMessage(message);
 			}
 
 			_logger.Info("ExampleConsumer ended");
+		}
+
+		private void ProcessMessage(ExampleMessage message)
+		{
+			_logger.Info($"Received message: {message}");
+			_consumer.Ack(message);
+			Thread.Sleep(1000);
 		}
 
 		public void Dispose()

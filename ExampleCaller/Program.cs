@@ -17,13 +17,6 @@ namespace RabbitMQDemo.ExampleCaller
 			Environment.Exit(0);
 		}
 
-		public static T GetCaller<T>(Identifier id)
-		{
-			return Container
-				.Resolve<ICallerFactory>()
-				.CreateCaller<T>(id);
-		}
-
 		private static IContainer InitContainer()
 		{
 			var builder = new ContainerBuilder();

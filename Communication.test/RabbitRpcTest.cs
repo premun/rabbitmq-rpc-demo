@@ -38,7 +38,7 @@ namespace RabbitMQDemo.Communication.test
 		{
 			IRpcCommunicationListener listener = communicationService.CreateRpcCommunicationListener(SimpleListeningFunction);
 			listener.ListeningThreadFailed += ListeningThreadFailed;
-			listener.StartListen();
+			listener.StartListening();
 
 			return listener;
 		}
@@ -186,7 +186,7 @@ namespace RabbitMQDemo.Communication.test
 					IRpcCommunicationListener listener = communicationService.CreateRpcCommunicationListener(CrashListeningFunction))
 				{
 					listener.ListeningThreadFailed += ListeningThreadFailed;
-					listener.StartListen();
+					listener.StartListening();
 
 					Thread.Sleep(100);
 
@@ -213,17 +213,17 @@ namespace RabbitMQDemo.Communication.test
 				using (var listener = communicationService.CreateRpcCommunicationListener(SimpleListeningFunction))
 				{
 					listener.ListeningThreadFailed += ListeningThreadFailed;
-					listener.StartListening += (sender, e) =>
+					listener.ListeningStarted += (sender, e) =>
 					{
 						startListeningCalled = true;
 					};
 
-					listener.StopListening += (sender, e) =>
+					listener.ListeningStopped += (sender, e) =>
 					{
 						stopListeningCalled = true;
 					};
 
-					listener.StartListen();
+					listener.StartListening();
 					Thread.Sleep(500);
 				}
 			}
